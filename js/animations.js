@@ -5,7 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Hero Parallax Effect
-    // Moves the hero content and background at different speeds
     gsap.to("#hero", {
         scrollTrigger: {
             trigger: "#hero",
@@ -17,76 +16,70 @@ document.addEventListener('DOMContentLoaded', () => {
         ease: "none"
     });
 
-    // 2. Cinematic Section Titles (Reveal)
-    // Animate headings with a premium reveal effect
+    // 2. Cinematic Section Titles (Reveal) - FASTER
     const headings = document.querySelectorAll('h2');
     headings.forEach(heading => {
         gsap.fromTo(heading,
             {
-                y: 50,
-                opacity: 0,
-                skewY: 7
+                y: 30, // Reduced distance
+                opacity: 0
             },
             {
                 y: 0,
                 opacity: 1,
-                skewY: 0,
-                duration: 1.5,
-                ease: "power4.out",
+                duration: 0.6, // Much faster (was 1.5)
+                ease: "power2.out", // Snappier ease
                 scrollTrigger: {
                     trigger: heading,
-                    start: "top 85%", // Animation starts when top of element hits 85% of viewport
+                    start: "top 95%", // Triggers almost immediately when entering viewport
                     toggleActions: "play none none reverse"
                 }
             }
         );
     });
 
-    // 3. Staggered Animations for Grid Items (Cards, Icons)
-    // Animate items in a grid one by one
+    // 3. Staggered Animations for Grid Items - FASTER
     const grids = document.querySelectorAll('.grid');
     grids.forEach(grid => {
         const children = grid.children;
         if (children.length > 0) {
             gsap.fromTo(children,
                 {
-                    y: 30,
+                    y: 20,
                     opacity: 0
                 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
-                    stagger: 0.2, // 0.2s delay between each item
-                    ease: "power3.out",
+                    duration: 0.5, // Faster
+                    stagger: 0.05, // Very fast stagger (was 0.2)
+                    ease: "power2.out",
                     scrollTrigger: {
                         trigger: grid,
-                        start: "top 80%",
+                        start: "top 90%", // Triggers earlier
                     }
                 }
             );
         }
     });
 
-    // 4. Feature Sections (Zig-Zag) Parallax
-    // Add subtle movement to images in the Air/Land/Water sections
+    // 4. Feature Sections (Zig-Zag) Parallax - FASTER
     const modeImages = document.querySelectorAll('#air img, #land img, #water img');
     modeImages.forEach(img => {
         gsap.fromTo(img,
-            { scale: 0.9, opacity: 0 },
+            { scale: 0.95, opacity: 0 }, // Less scaling needed
             {
                 scale: 1,
                 opacity: 1,
-                duration: 1.2,
+                duration: 0.8, // Faster (was 1.2)
                 ease: "power2.out",
                 scrollTrigger: {
                     trigger: img,
-                    start: "top 75%",
+                    start: "top 85%",
                 }
             }
         );
     });
 
-    // Log for debugging
-    console.log("GSAP Animations Initialized");
+    console.log("GSAP Animations Initialized (Fast Mode)");
 });
