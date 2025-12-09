@@ -937,18 +937,30 @@
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
         </svg>
+    </button>
+
+    <!-- Scripts -->
+    <script src="js/translations.js"></script>
+    <script src="js/language.js"></script>
+
+    <script>
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
         };
 
         const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        }
-        });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, observerOptions);
 
         document.querySelectorAll('.reveal').forEach(el => {
-        observer.observe(el);
+            observer.observe(el);
         });
 
         // Mobile Menu Logic
@@ -959,127 +971,127 @@
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         function toggleMenu() {
-        const isHidden = mobileMenu.classList.contains('hidden');
+            const isHidden = mobileMenu.classList.contains('hidden');
 
-        if (isHidden) {
-        // Open Menu
-        mobileMenu.classList.remove('hidden');
-        // Small delay to allow display:block to apply before opacity transition
-        setTimeout(() => {
-        mobileMenu.classList.remove('opacity-0');
-        mobileMenu.classList.add('opacity-100');
-        }, 10);
-        menuIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
-        } else {
-        // Close Menu
-        mobileMenu.classList.remove('opacity-100');
-        mobileMenu.classList.add('opacity-0');
-        setTimeout(() => {
-        mobileMenu.classList.add('hidden');
-        }, 300); // Wait for transition
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        document.body.style.overflow = ''; // Enable scrolling
-        }
+            if (isHidden) {
+                // Open Menu
+                mobileMenu.classList.remove('hidden');
+                // Small delay to allow display:block to apply before opacity transition
+                setTimeout(() => {
+                    mobileMenu.classList.remove('opacity-0');
+                    mobileMenu.classList.add('opacity-100');
+                }, 10);
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            } else {
+                // Close Menu
+                mobileMenu.classList.remove('opacity-100');
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => {
+                    mobileMenu.classList.add('hidden');
+                }, 300); // Wait for transition
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                document.body.style.overflow = ''; // Enable scrolling
+            }
         }
 
         mobileBtn.addEventListener('click', toggleMenu);
 
         // Close menu when a link is clicked
         mobileLinks.forEach(link => {
-        link.addEventListener('click', toggleMenu);
+            link.addEventListener('click', toggleMenu);
         });
 
         // Back to Top Logic
         const backToTopBtn = document.getElementById('back-to-top');
 
         window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-        backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-        backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        } else {
-        backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-        backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-        }
+            if (window.scrollY > 500) {
+                backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            } else {
+                backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+            }
         });
 
         // Lightbox Logic
         const galleryImages = [
-        'assets/gallery/gallery-1.png',
-        'assets/gallery/gallery-2.png',
-        'assets/gallery/gallery-3.png',
-        'assets/gallery/gallery-4.png',
-        'assets/gallery/gallery-5.png'
+            'assets/gallery/gallery-1.png',
+            'assets/gallery/gallery-2.png',
+            'assets/gallery/gallery-3.png',
+            'assets/gallery/gallery-4.png',
+            'assets/gallery/gallery-5.png'
         ];
         let currentImageIndex = 0;
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
         function openLightbox(index) {
-        currentImageIndex = index;
-        lightboxImg.src = galleryImages[currentImageIndex];
+            currentImageIndex = index;
+            lightboxImg.src = galleryImages[currentImageIndex];
 
-        lightbox.classList.remove('hidden');
-        setTimeout(() => {
-        lightbox.classList.remove('opacity-0');
-        lightboxImg.classList.remove('scale-95');
-        lightboxImg.classList.add('scale-100');
-        }, 10);
-        document.body.style.overflow = 'hidden';
+            lightbox.classList.remove('hidden');
+            setTimeout(() => {
+                lightbox.classList.remove('opacity-0');
+                lightboxImg.classList.remove('scale-95');
+                lightboxImg.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
         }
 
         function closeLightbox() {
-        lightbox.classList.add('opacity-0');
-        lightboxImg.classList.remove('scale-100');
-        lightboxImg.classList.add('scale-95');
-        setTimeout(() => {
-        lightbox.classList.add('hidden');
-        }, 300);
-        document.body.style.overflow = '';
+            lightbox.classList.add('opacity-0');
+            lightboxImg.classList.remove('scale-100');
+            lightboxImg.classList.add('scale-95');
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+            }, 300);
+            document.body.style.overflow = '';
         }
 
         function nextImage() {
-        currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
-        updateLightboxImage();
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateLightboxImage();
         }
 
         function prevImage() {
-        currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
-        updateLightboxImage();
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateLightboxImage();
         }
 
         function updateLightboxImage() {
-        lightboxImg.classList.add('opacity-0');
-        setTimeout(() => {
-        lightboxImg.src = galleryImages[currentImageIndex];
-        lightboxImg.onload = () => {
-        lightboxImg.classList.remove('opacity-0');
-        };
-        }, 200);
+            lightboxImg.classList.add('opacity-0');
+            setTimeout(() => {
+                lightboxImg.src = galleryImages[currentImageIndex];
+                lightboxImg.onload = () => {
+                    lightboxImg.classList.remove('opacity-0');
+                };
+            }, 200);
         }
 
         // Close lightbox on outside click
         lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-        closeLightbox();
-        }
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
         });
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('hidden')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowRight') nextImage();
-        if (e.key === 'ArrowLeft') prevImage();
+            if (lightbox.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
         });
-        </script>
+    </script>
 
 
 
-        <script src="js/particles.js"></script>
-        <script src="js/tilt.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/tilt.js"></script>
 </body>
 
 </html>
