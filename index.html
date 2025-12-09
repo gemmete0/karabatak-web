@@ -113,10 +113,10 @@
             <img src="assets/logo.png" alt="Karabatak Logo" class="h-16 w-auto object-contain">
         </a>
         <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-            <a href="#hero" class="hover:text-white transition-colors" data-i18n="nav.home">Ana Sayfa</a>
-            <a href="#vision" class="hover:text-white transition-colors" data-i18n="nav.vision">Vizyon</a>
-            <a href="#gallery" class="hover:text-white transition-colors" data-i18n="nav.gallery">Galeri</a>
-            <a href="#specs" class="hover:text-white transition-colors" data-i18n="nav.specs">Özellikler</a>
+            <a href="#hero" class="nav-link hover:text-white transition-colors" data-i18n="nav.home">Ana Sayfa</a>
+            <a href="#vision" class="nav-link hover:text-white transition-colors" data-i18n="nav.vision">Vizyon</a>
+            <a href="#gallery" class="nav-link hover:text-white transition-colors" data-i18n="nav.gallery">Galeri</a>
+            <a href="#specs" class="nav-link hover:text-white transition-colors" data-i18n="nav.specs">Özellikler</a>
 
             <!-- Language Switcher -->
             <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
@@ -986,6 +986,38 @@
             if (e.key === 'ArrowRight') nextImage();
             if (e.key === 'ArrowLeft') prevImage();
         });
+
+        // Active Menu Tracking
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveMenu() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            // Special handling for footer/contact if needed, or just let it be
+            // If we are at the bottom, maybe highlight nothing or last item?
+            // For now, simple matching.
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-white', 'font-bold', 'scale-110');
+                link.classList.add('text-gray-400', 'font-medium');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.remove('text-gray-400', 'font-medium');
+                    link.classList.add('text-white', 'font-bold', 'scale-110');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveMenu);
+        window.addEventListener('load', updateActiveMenu);
     </script>
 
 
