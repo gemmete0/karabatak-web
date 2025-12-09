@@ -1,0 +1,208 @@
+const translations = {
+    tr: {
+        // Nav
+        "nav.home": "Ana Sayfa",
+        "nav.vision": "Vizyon",
+        "nav.air": "Hava",
+        "nav.land": "Kara",
+        "nav.water": "Su",
+        "nav.specs": "Özellikler",
+        "nav.brochure": "Broşür",
+
+        // Hero
+        "hero.air": "Hava",
+        "hero.land": "Kara",
+        "hero.water": "Su",
+        "hero.download": "Broşürü İndir",
+
+        // Vision
+        "vision.title": "Sınırları Aşan <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500'>Vizyon</span>",
+        "vision.desc": "Afyon Kocatepe Üniversitesi takımı tarafından geliştirilen Karabatak projesi, otonom sistemlerin sınırlarını zorlayarak hava, kara ve su ortamlarında kesintisiz operasyon kabiliyeti sunar. Hibrit yapısı sayesinde her türlü zorlu koşulda görevini başarıyla tamamlar.",
+        "vision.autonomous": "Tam Otonom",
+        "vision.durable": "Dayanıklı",
+        "vision.range": "Uzun Menzil",
+        "vision.ai": "Yapay Zeka",
+
+        // Air Mode
+        "air.title": "Hava Modu",
+        "air.subtitle": "Sessiz. Hızlı. Kararlı.",
+        "air.desc": "Gelişmiş aerodinamik yapısı ve güçlü fırçasız motorları ile havada üstün manevra kabiliyeti. Otonom uçuş algoritmaları sayesinde en zorlu görevleri sessizce tamamlar.",
+        "air.time": "Uçuş Süresi",
+        "air.speed": "Maksimum Hız",
+
+        // Land Mode
+        "land.title": "Kara Modu",
+        "land.subtitle": "Sağlam. Güvenilir. Hazır.",
+        "land.desc": "Kanatların tekerlek formuna dönüşmesiyle zorlu arazi koşullarında kesintisiz ilerleme. Hibrit yapısı, engelleri aşmak için tasarlandı.",
+        "land.structure": "Yapı",
+        "land.body": "Gövde",
+        "land.hybrid": "Hibrit",
+        "land.carbon": "Karbon Fiber",
+
+        // Water Mode
+        "water.title": "Su Modu",
+        "water.subtitle": "Derin. Dinamik.",
+        "water.desc": "60 derece dönebilen kanat mekanizması ile su üzerinde ve altında itki sağlar. Sızdırmaz gövde tasarımı ile tam koruma.",
+        "water.angle": "Dönüş Açısı",
+        "water.protection": "Koruma",
+
+        // System Components (New)
+        "components.title": "Sistem Bileşenleri",
+        "components.desc": "En son teknoloji donanımlar ile güçlendirilmiş hibrit yapı.",
+        "comp.fc": "Uçuş Kontrol",
+        "comp.fc.desc": "Pixhawk Cube Orange+ & Here4 GPS",
+        "comp.computer": "Ana Bilgisayar",
+        "comp.computer.desc": "Raspberry Pi 5 (16GB RAM)",
+        "comp.camera": "Kamera Sistemi",
+        "comp.camera.desc": "IMX219-160 8MP IR-CUT",
+        "comp.telemetry": "Telemetri",
+        "comp.telemetry.desc": "3DR V5 433MHz Uzun Menzil",
+        "comp.sensors": "Sensörler",
+        "comp.sensors.desc": "URM37 Ultrasonik & IMU",
+        "comp.battery": "Güç Kaynağı",
+        "comp.battery.desc": "Leopard Power 10000mAh 6S",
+        "comp.actuators": "Eyleyiciler",
+        "comp.actuators.desc": "Tower Pro MG946 & DC Motorlar",
+        "comp.material": "Malzeme",
+        "comp.material.desc": "eSun PLA+ & Karbon Fiber",
+
+        // Software & AI (New)
+        "software.title": "Yazılım ve Yapay Zeka",
+        "software.desc": "Gelişmiş algoritmalar ve güvenli veri iletişimi.",
+        "soft.ros": "ROS2 & PX4",
+        "soft.ros.desc": "Otonom uçuş ve görev yönetimi entegrasyonu.",
+        "soft.vision": "Görüntü İşleme",
+        "soft.vision.desc": "OpenCV ile nesne tespiti ve takip.",
+        "soft.crypto": "Veri Güvenliği",
+        "soft.crypto.desc": "CryptoJS ile uçtan uca şifreleme (AES-256).",
+        "soft.ui": "Arayüz",
+        "soft.ui.desc": "QGroundControl, Mapbox ve Leaflet.js.",
+        "soft.algo": "Algoritmalar",
+        "soft.algo.desc": "PID Kontrol ve Kalman Filtresi.",
+        "soft.sim": "Simülasyon",
+        "soft.sim.desc": "Gazebo ve SITL ile sanal test ortamı.",
+
+        // Specs
+        "specs.title": "Teknik Özellikler",
+        "specs.takeoff_weight": "Kalkış Ağırlığı",
+        "specs.empty_weight": "Boş Ağırlık",
+        "specs.battery": "Batarya",
+        "specs.flight_time": "Uçuş Süresi",
+        "specs.thrust": "Toplam İtki",
+        "specs.motors": "Motorlar",
+
+        // Sponsor
+        "sponsor.title": "Geleceğe Ortak Olun",
+        "sponsor.desc": "Karabatak projesi, yerli ve milli teknoloji hamlesinin bir parçası olarak sınırları zorluyor. Bu vizyoner yolculukta bize destek vererek teknolojinin geleceğine imza atın.",
+        "sponsor.btn_sponsor": "Sponsor Olun",
+        "sponsor.btn_contact": "İletişime Geçin",
+
+        // Footer
+        "footer.contact": "İletişim",
+        "footer.download": "Tanıtım Dosyasını İndir (PDF)",
+        "footer.rights": "&copy; 2025 Karabatak UAV Project. Tüm hakları saklıdır."
+    },
+    en: {
+        // Nav
+        "nav.home": "Home",
+        "nav.vision": "Vision",
+        "nav.air": "Air",
+        "nav.land": "Land",
+        "nav.water": "Water",
+        "nav.specs": "Specs",
+        "nav.brochure": "Brochure",
+
+        // Hero
+        "hero.air": "Air",
+        "hero.land": "Land",
+        "hero.water": "Water",
+        "hero.download": "Download Brochure",
+
+        // Vision
+        "vision.title": "Vision Beyond <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500'>Borders</span>",
+        "vision.desc": "Developed by the Afyon Kocatepe University team, the Karabatak project pushes the boundaries of autonomous systems, offering seamless operational capability in air, land, and water environments. Its hybrid structure ensures mission success in all challenging conditions.",
+        "vision.autonomous": "Fully Autonomous",
+        "vision.durable": "Durable",
+        "vision.range": "Long Range",
+        "vision.ai": "AI Powered",
+
+        // Air Mode
+        "air.title": "Air Mode",
+        "air.subtitle": "Silent. Fast. Decisive.",
+        "air.desc": "Superior maneuverability in the air with advanced aerodynamic structure and powerful brushless motors. Completes the toughest missions silently thanks to autonomous flight algorithms.",
+        "air.time": "Flight Time",
+        "air.speed": "Max Speed",
+
+        // Land Mode
+        "land.title": "Land Mode",
+        "land.subtitle": "Rugged. Reliable. Ready.",
+        "land.desc": "Continuous progress in difficult terrain conditions as wings transform into wheels. Its hybrid structure is designed to overcome obstacles.",
+        "land.structure": "Structure",
+        "land.body": "Body",
+        "land.hybrid": "Hybrid",
+        "land.carbon": "Carbon Fiber",
+
+        // Water Mode
+        "water.title": "Water Mode",
+        "water.subtitle": "Deep. Dynamic.",
+        "water.desc": "Provides propulsion above and below water with a 60-degree rotating wing mechanism. Full protection with sealed body design.",
+        "water.angle": "Rotation Angle",
+        "water.protection": "Protection",
+
+        // System Components (New)
+        "components.title": "System Components",
+        "components.desc": "Hybrid structure powered by state-of-the-art hardware.",
+        "comp.fc": "Flight Control",
+        "comp.fc.desc": "Pixhawk Cube Orange+ & Here4 GPS",
+        "comp.computer": "Main Computer",
+        "comp.computer.desc": "Raspberry Pi 5 (16GB RAM)",
+        "comp.camera": "Camera System",
+        "comp.camera.desc": "IMX219-160 8MP IR-CUT",
+        "comp.telemetry": "Telemetry",
+        "comp.telemetry.desc": "3DR V5 433MHz Long Range",
+        "comp.sensors": "Sensors",
+        "comp.sensors.desc": "URM37 Ultrasonic & IMU",
+        "comp.battery": "Power Source",
+        "comp.battery.desc": "Leopard Power 10000mAh 6S",
+        "comp.actuators": "Actuators",
+        "comp.actuators.desc": "Tower Pro MG946 & DC Motors",
+        "comp.material": "Material",
+        "comp.material.desc": "eSun PLA+ & Carbon Fiber",
+
+        // Software & AI (New)
+        "software.title": "Software & Intelligence",
+        "software.desc": "Advanced algorithms and secure data communication.",
+        "soft.ros": "ROS2 & PX4",
+        "soft.ros.desc": "Autonomous flight and mission management integration.",
+        "soft.vision": "Computer Vision",
+        "soft.vision.desc": "Object detection and tracking with OpenCV.",
+        "soft.crypto": "Data Security",
+        "soft.crypto.desc": "End-to-End encryption with CryptoJS (AES-256).",
+        "soft.ui": "Interface",
+        "soft.ui.desc": "QGroundControl, Mapbox and Leaflet.js.",
+        "soft.algo": "Algorithms",
+        "soft.algo.desc": "PID Control and Kalman Filter.",
+        "soft.sim": "Simulation",
+        "soft.sim.desc": "Virtual testing with Gazebo and SITL.",
+
+        // Specs
+        "specs.title": "Technical Specifications",
+        "specs.takeoff_weight": "Take-off Weight",
+        "specs.empty_weight": "Empty Weight",
+        "specs.battery": "Battery",
+        "specs.flight_time": "Flight Time",
+        "specs.thrust": "Total Thrust",
+        "specs.motors": "Motors",
+
+        // Sponsor
+        "sponsor.title": "Partner with the Future",
+        "sponsor.desc": "The Karabatak project pushes boundaries as part of the national technology initiative. Make your mark on the future of technology by supporting us on this visionary journey.",
+        "sponsor.btn_sponsor": "Become a Sponsor",
+        "sponsor.btn_contact": "Contact Us",
+
+        // Footer
+        "footer.contact": "Contact",
+        "footer.download": "Download Brochure (PDF)",
+        "footer.rights": "&copy; 2025 Karabatak UAV Project. All rights reserved."
+    }
+};

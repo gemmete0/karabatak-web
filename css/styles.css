@@ -1,0 +1,15 @@
+.blue-gradient-text {
+    background: linear-gradient(to right, #00F0FF, #0077FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Ensure images cover their containers nicely */
+img {
+    max-width: 100%;
+    height: auto;
+}
