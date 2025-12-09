@@ -26,18 +26,22 @@
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://karabatakuav.com/">
     <meta property="twitter:title" content="Karabatak UAV - Limitless Autonomy">
-    fontFamily: {
-    sans: ['Inter', 'sans-serif'],
-    },
-    colors: {
-    deepblack: '#050505',
-    air: '#3b82f6',
-    land: '#f97316',
-    water: '#14b8a6',
-    }
-    }
-    }
-    }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        deepblack: '#050505',
+                        air: '#3b82f6',
+                        land: '#f97316',
+                        water: '#14b8a6',
+                    }
+                }
+            }
+        }
     </script>
     <style>
         html {
@@ -1073,6 +1077,8 @@
 
 
 
+        <script src="js/particles.js"></script>
+        <script src="js/tilt.js"></script>
 </body>
 
 </html>
