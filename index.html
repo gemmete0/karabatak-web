@@ -184,7 +184,7 @@
         class="min-h-screen flex flex-col items-center justify-center p-6 md:p-12 pt-24 relative overflow-hidden">
         <canvas id="particles-canvas"
             class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-7xl h-[70vh] mb-8">
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-7xl h-[70vh] mb-8">
 
             <!-- Kart 1: Hava -->
             <!-- Kart 1: Hava -->
@@ -962,6 +962,13 @@
         document.querySelectorAll('.reveal').forEach(el => {
             observer.observe(el);
         });
+
+        // Fail-safe: Force show elements if observer fails
+        setTimeout(() => {
+            document.querySelectorAll('.reveal').forEach(el => {
+                el.classList.add('active');
+            });
+        }, 1000);
 
         // Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-menu-btn');
