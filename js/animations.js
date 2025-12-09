@@ -5,14 +5,16 @@ gsap.registerPlugin(ScrollTrigger);
 document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Hero Parallax Effect
-    gsap.to("#hero", {
+    // 1. Hero Parallax Effect
+    // Move background particles slower/faster for depth, keeping content stable
+    gsap.to("#particles-canvas", {
         scrollTrigger: {
             trigger: "#hero",
             start: "top top",
             end: "bottom top",
             scrub: true
         },
-        yPercent: 50,
+        yPercent: 30, // Move background only
         ease: "none"
     });
 
