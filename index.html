@@ -785,33 +785,44 @@
                                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                         </svg>
                         <span data-i18n="footer.download">Tanıtım Dosyasını İndir (PDF)</span>
-                        <input type="text" name="name" id="name" required
-                            class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                            placeholder="Adınız">
+                    </a>
                 </div>
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-400 mb-2"
-                        data-i18n="form.email">E-posta Adresi</label>
-                    <input type="email" name="email" id="email" required
-                        class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                        placeholder="ornek@email.com">
+
+                <!-- Sağ Taraf: İletişim Formu -->
+                <div class="bg-zinc-900/30 p-8 rounded-3xl border border-white/10 reveal"
+                    style="transition-delay: 200ms;">
+                    <form action="https://formspree.io/f/xldqwpkq" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2"
+                                data-i18n="form.name">İsim Soyisim</label>
+                            <input type="text" name="name" id="name" required
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                placeholder="Adınız">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2"
+                                data-i18n="form.email">E-posta Adresi</label>
+                            <input type="email" name="email" id="email" required
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                placeholder="ornek@email.com">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2"
+                                data-i18n="form.message">Mesajınız</label>
+                            <textarea name="message" id="message" rows="4" required
+                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                placeholder="Mesajınızı buraya yazın..."></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                            <span data-i18n="form.submit">Gönder</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-400 mb-2"
-                        data-i18n="form.message">Mesajınız</label>
-                    <textarea name="message" id="message" rows="4" required
-                        class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                        placeholder="Mesajınızı buraya yazın..."></textarea>
-                </div>
-                <button type="submit"
-                    class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                    <span data-i18n="form.submit">Gönder</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                    </svg>
-                </button>
-                </form>
             </div>
         </div>
 
@@ -988,36 +999,36 @@
         });
 
         // Active Menu Tracking
-        const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
 
-        function updateActiveMenu() {
-            let current = '';
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    // Ensure we have a matching link
+                    const matchingLink = document.querySelector(`.nav-link[href="#${id}"]`);
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                    current = section.getAttribute('id');
+                    if (matchingLink) {
+                        // Remove active class from all
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-white', 'font-bold', 'scale-110');
+                            link.classList.add('text-gray-400', 'font-medium');
+                        });
+                        // Add to current
+                        matchingLink.classList.remove('text-gray-400', 'font-medium');
+                        matchingLink.classList.add('text-white', 'font-bold', 'scale-110');
+                    }
                 }
             });
+        }, {
+            rootMargin: '-50% 0px -50% 0px', // Trigger when section is in the middle of viewport
+            threshold: 0
+        });
 
-            // Special handling for footer/contact if needed, or just let it be
-            // If we are at the bottom, maybe highlight nothing or last item?
-            // For now, simple matching.
-
-            navLinks.forEach(link => {
-                link.classList.remove('text-white', 'font-bold', 'scale-110');
-                link.classList.add('text-gray-400', 'font-medium');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.remove('text-gray-400', 'font-medium');
-                    link.classList.add('text-white', 'font-bold', 'scale-110');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveMenu);
-        window.addEventListener('load', updateActiveMenu);
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
     </script>
 
 
