@@ -28,7 +28,6 @@ const translations = {
         "air.subtitle": "Sessiz. Hızlı. Kararlı.",
         "air.desc": "İHA'nın gövdesi, düşük sürtünme ve yüksek kaldırma kapasitesine sahip olacak şekilde tasarlanmıştır. H-Frame yapısının aerodinamik avantajları kullanılarak, hava akışının düzgün bir şekilde yönlendirilmesi sağlanmıştır. Ayrıca, kanatların formu ve yerleşimi stabiliteyi artırarak manevra kabiliyetini geliştirmektedir.",
         "air.time": "Uçuş Süresi",
-        "air.speed": "Maksimum Hız",
 
         // Land Mode
         "land.title": "Kara Modu",
@@ -41,7 +40,7 @@ const translations = {
 
         // Water Mode
         "water.title": "Su Modu",
-        "water.subtitle": "Derin. Dinamik.",
+        "water.subtitle": "Su Üstü. Dinamik.",
         "water.desc": "Su yüzeyinde stabilite ve manevra kolaylığı sağlamak için ayakların uç kısımları sivritilmiş ve aerodinamik verimlilik ön planda tutulmuştur. Arka kanatların 60° dönerek su moduna geçiş yapabilmesi, su yüzeyinde hareket edebilme kabiliyetini artıran önemli bir tasarım özelliğidir.",
         "water.angle": "Dönüş Açısı",
         "water.protection": "Koruma",
@@ -131,7 +130,6 @@ const translations = {
         "air.subtitle": "Silent. Fast. Decisive.",
         "air.desc": "Designed for low drag and high lift capability. Utilizing the aerodynamic advantages of the H-Frame structure, airflow is guided smoothly. The form and placement of the wings enhance maneuverability by increasing stability.",
         "air.time": "Flight Time",
-        "air.speed": "Max Speed",
 
         // Land Mode
         "land.title": "Land Mode",
@@ -144,7 +142,7 @@ const translations = {
 
         // Water Mode
         "water.title": "Water Mode",
-        "water.subtitle": "Deep. Dynamic.",
+        "water.subtitle": "Surface. Dynamic.",
         "water.desc": "Designed to ensure minimum drag while moving on the water surface. The rear wings rotate 60° to transition to water mode, a key design feature that enhances movement capability on the water surface.",
         "water.angle": "Rotation Angle",
         "water.protection": "Protection",
