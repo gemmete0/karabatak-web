@@ -26,14 +26,14 @@ const translations = {
         // Air Mode
         "air.title": "Hava Modu",
         "air.subtitle": "Sessiz. Hızlı. Kararlı.",
-        "air.desc": "Gelişmiş aerodinamik yapısı ve güçlü fırçasız motorları ile havada üstün manevra kabiliyeti. Otonom uçuş algoritmaları sayesinde en zorlu görevleri sessizce tamamlar.",
+        "air.desc": "İHA'nın gövdesi, düşük sürtünme ve yüksek kaldırma kapasitesine sahip olacak şekilde tasarlanmıştır. H-Frame yapısının aerodinamik avantajları kullanılarak, hava akışının düzgün bir şekilde yönlendirilmesi sağlanmıştır. Ayrıca, kanatların formu ve yerleşimi stabiliteyi artırarak manevra kabiliyetini geliştirmektedir.",
         "air.time": "Uçuş Süresi",
         "air.speed": "Maksimum Hız",
 
         // Land Mode
         "land.title": "Kara Modu",
         "land.subtitle": "Sağlam. Güvenilir. Hazır.",
-        "land.desc": "Kanatların tekerlek formuna dönüşmesiyle zorlu arazi koşullarında kesintisiz ilerleme. Hibrit yapısı, engelleri aşmak için tasarlandı.",
+        "land.desc": "İHA'nın kara ortamında hareket edebilmesi için aerodinamik yapı bazında, zemine temas sırasında stabilitenin arttırılması üzerine odaklanılmıştır. Kanatların dış kısmında yer alan kauçuk malzeme, tekerlek görevi görmesi amacıyla seçilmiştir ve karada hareket ederken zemine tutunmayı kolaylaştırır.",
         "land.structure": "Yapı",
         "land.body": "Gövde",
         "land.hybrid": "Hibrit",
@@ -42,7 +42,7 @@ const translations = {
         // Water Mode
         "water.title": "Su Modu",
         "water.subtitle": "Derin. Dinamik.",
-        "water.desc": "60 derece dönebilen kanat mekanizması ile su üzerinde ve altında itki sağlar. Sızdırmaz gövde tasarımı ile tam koruma.",
+        "water.desc": "Su yüzeyinde stabilite ve manevra kolaylığı sağlamak için ayakların uç kısımları sivritilmiş ve aerodinamik verimlilik ön planda tutulmuştur. Arka kanatların 60° dönerek su moduna geçiş yapabilmesi, su yüzeyinde hareket edebilme kabiliyetini artıran önemli bir tasarım özelliğidir.",
         "water.angle": "Dönüş Açısı",
         "water.protection": "Koruma",
 
@@ -129,14 +129,14 @@ const translations = {
         // Air Mode
         "air.title": "Air Mode",
         "air.subtitle": "Silent. Fast. Decisive.",
-        "air.desc": "Superior maneuverability in the air with advanced aerodynamic structure and powerful brushless motors. Completes the toughest missions silently thanks to autonomous flight algorithms.",
+        "air.desc": "Designed for low drag and high lift capability. Utilizing the aerodynamic advantages of the H-Frame structure, airflow is guided smoothly. The form and placement of the wings enhance maneuverability by increasing stability.",
         "air.time": "Flight Time",
         "air.speed": "Max Speed",
 
         // Land Mode
         "land.title": "Land Mode",
         "land.subtitle": "Rugged. Reliable. Ready.",
-        "land.desc": "Continuous progress in difficult terrain conditions as wings transform into wheels. Its hybrid structure is designed to overcome obstacles.",
+        "land.desc": "Focused on increasing stability during ground contact. Rubber material on the outer part of the wings acts as wheels, facilitating traction on the ground. This ensures stable movement on land with less energy consumption.",
         "land.structure": "Structure",
         "land.body": "Body",
         "land.hybrid": "Hybrid",
@@ -145,7 +145,7 @@ const translations = {
         // Water Mode
         "water.title": "Water Mode",
         "water.subtitle": "Deep. Dynamic.",
-        "water.desc": "Provides propulsion above and below water with a 60-degree rotating wing mechanism. Full protection with sealed body design.",
+        "water.desc": "Designed to ensure minimum drag while moving on the water surface. The rear wings rotate 60° to transition to water mode, a key design feature that enhances movement capability on the water surface.",
         "water.angle": "Rotation Angle",
         "water.protection": "Protection",
 
