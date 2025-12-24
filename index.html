@@ -1109,6 +1109,96 @@
             </div>
     </section>
 
+    <!-- BÖLÜM 9: OPERASYON SENARYOLARI (Expandable Cards) -->
+    <section id="scenarios" class="py-24 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 reveal" data-i18n="scenarios.title">Operasyon
+                Senaryoları</h2>
+
+            <div class="flex flex-col md:flex-row gap-4 h-[600px] reveal" style="transition-delay: 200ms;">
+
+                <!-- Rescue Card -->
+                <div
+                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="assets/scenarios/rescue.png"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        alt="Search and Rescue">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-red-500 border border-red-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                            data-i18n="scenarios.rescue.title">Arama & Kurtarma</h3>
+                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                            data-i18n="scenarios.rescue.desc">
+                            Zorlu hava koşullarında ve gece operasyonlarında termal görüş ile hayat kurtarır.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Inspection Card -->
+                <div
+                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="assets/scenarios/inspection.png"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        alt="Inspection">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div
+                            class="w-12 h-12 rounded-full bg-yellow-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-yellow-500 border border-yellow-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                            data-i18n="scenarios.inspection.title">Endüstriyel Denetim</h3>
+                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                            data-i18n="scenarios.inspection.desc">
+                            Petrol platformları ve enerji hatlarını güvenli mesafeden yüksek çözünürlükle denetler.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Delivery Card -->
+                <div
+                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                    <img src="assets/scenarios/delivery.png"
+                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        alt="Delivery">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div
+                            class="w-12 h-12 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-blue-500 border border-blue-500/30">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                            data-i18n="scenarios.delivery.title">Acil Teslimat</h3>
+                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                            data-i18n="scenarios.delivery.desc">
+                            Afet bölgelerine tıbbi malzeme ve acil yardım kitlerini hızla ulaştırır.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- BÖLÜM 10: İLETİŞİM FORMU & FOOTER -->
     <footer id="contact" class="py-20 bg-black border-t border-white/10">
         <div class="max-w-7xl mx-auto px-6 md:px-12">

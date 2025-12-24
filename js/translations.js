@@ -96,6 +96,15 @@ const translations = {
         "sponsor.btn_sponsor": "Sponsor Olun",
         "sponsor.btn_contact": "İletişime Geçin",
 
+        // Scenarios
+        "scenarios.title": "Operasyon Senaryoları",
+        "scenarios.rescue.title": "Arama & Kurtarma",
+        "scenarios.rescue.desc": "Zorlu hava koşullarında ve gece operasyonlarında termal görüş ile hayat kurtarır.",
+        "scenarios.inspection.title": "Endüstriyel Denetim",
+        "scenarios.inspection.desc": "Petrol platformları ve enerji hatlarını güvenli mesafeden yüksek çözünürlükle denetler.",
+        "scenarios.delivery.title": "Acil Teslimat",
+        "scenarios.delivery.desc": "Afet bölgelerine tıbbi malzeme ve acil yardım kitlerini hızla ulaştırır.",
+
         // Footer
         "footer.contact": "İletişim",
         "footer.download": "Tanıtım Dosyasını İndir (PDF)",
@@ -197,6 +206,15 @@ const translations = {
         "sponsor.desc": "The Karabatak project pushes boundaries as part of the national technology initiative. Make your mark on the future of technology by supporting us on this visionary journey.",
         "sponsor.btn_sponsor": "Become a Sponsor",
         "sponsor.btn_contact": "Contact Us",
+
+        // Scenarios
+        "scenarios.title": "Mission Scenarios",
+        "scenarios.rescue.title": "Search & Rescue",
+        "scenarios.rescue.desc": "Saves lives in harsh weather and night operations with thermal vision.",
+        "scenarios.inspection.title": "Industrial Inspection",
+        "scenarios.inspection.desc": "Inspects oil rigs and power lines from a safe distance with high resolution.",
+        "scenarios.delivery.title": "Emergency Delivery",
+        "scenarios.delivery.desc": "Rapidly delivers medical supplies and emergency kits to disaster zones.",
 
         // Footer
         "footer.contact": "Contact",
