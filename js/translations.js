@@ -105,6 +105,14 @@ const translations = {
         "scenarios.delivery.title": "Acil Teslimat",
         "scenarios.delivery.desc": "Afet bölgelerine tıbbi malzeme ve acil yardım kitlerini hızla ulaştırır.",
 
+        // Story Mode
+        "story.camera.title": "Gelişmiş Gözlem",
+        "story.camera.desc": "Yüksek çözünürlüklü sensörler ve akıllı görüntü işleme.",
+        "story.motor.title": "Güçlü İtki",
+        "story.motor.desc": "Zorlu koşullara dayanıklı, yüksek verimli fırçasız motorlar.",
+        "story.body.title": "Aerodinamik Gövde",
+        "story.body.desc": "Hafif ve dayanıklı karbon fiber kompozit yapı.",
+
         // Footer
         "footer.contact": "İletişim",
         "footer.download": "Tanıtım Dosyasını İndir (PDF)",
@@ -215,6 +223,14 @@ const translations = {
         "scenarios.inspection.desc": "Inspects oil rigs and power lines from a safe distance with high resolution.",
         "scenarios.delivery.title": "Emergency Delivery",
         "scenarios.delivery.desc": "Rapidly delivers medical supplies and emergency kits to disaster zones.",
+
+        // Story Mode
+        "story.camera.title": "Advanced Vision",
+        "story.camera.desc": "High-resolution sensors and intelligent image processing.",
+        "story.motor.title": "Powerful Thrust",
+        "story.motor.desc": "High-efficiency brushless motors built for harsh conditions.",
+        "story.body.title": "Aerodynamic Body",
+        "story.body.desc": "Lightweight and durable carbon fiber composite structure.",
 
         // Footer
         "footer.contact": "Contact",
