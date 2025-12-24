@@ -166,6 +166,104 @@
             height: auto;
         }
 
+        /* Blueprint / X-Ray Mode Styles */
+        .blueprint-mode img {
+            filter: grayscale(100%) invert(100%) sepia(100%) hue-rotate(180deg) saturate(300%) contrast(1.2);
+            opacity: 0.9 !important;
+            transform: scale(1.05);
+            /* Slight zoom for effect */
+        }
+
+        .blueprint-grid {
+            background-image: linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 15;
+            border-radius: 0.5rem;
+            /* Match rounded-lg */
+        }
+
+        .blueprint-mode .blueprint-grid {
+            opacity: 1;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid cyan;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hotspot::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid cyan;
+            animation: pulse-ring 2s infinite;
+        }
+
+        .hotspot::after {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            background: cyan;
+            border-radius: 50%;
+        }
+
+        .blueprint-mode .hotspot {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hotspot:hover .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 150%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(0, 10, 20, 0.9);
+            border: 1px solid cyan;
+            color: cyan;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
         .lenis.lenis-smooth {
             scroll-behavior: auto !important;
         }
@@ -190,7 +288,7 @@
     <nav
         class="fixed top-0 w-full z-50 px-6 py-2 flex justify-between items-center bg-black/60 backdrop-blur-xl border-b border-white/10 reveal active">
         <a href="#hero" class="flex items-center gap-2">
-            <img src="assets/logo.png?v=7" alt="Karabatak Logo" class="h-24 w-auto object-contain">
+            <img src="assets/logo.png?v=8" alt="Karabatak Logo" class="h-24 w-auto object-contain">
         </a>
         <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
             <a href="#hero" class="nav-link hover:text-white transition-colors" data-i18n="nav.home">Ana Sayfa</a>
@@ -279,7 +377,7 @@
                 data-tilt-max="10" style="transition-delay: 100ms;">
                 <div class="card-shine"></div>
                 <div class="absolute inset-0">
-                    <img src="assets/air_v5.png?v=7"
+                    <img src="assets/air_v5.png?v=8"
                         class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
                         alt="Hava Modu">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -299,7 +397,7 @@
                 data-tilt-max="10" style="transition-delay: 200ms;">
                 <div class="card-shine"></div>
                 <div class="absolute inset-0">
-                    <img src="assets/land_v2.png?v=7"
+                    <img src="assets/land_v2.png?v=8"
                         class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
                         alt="Kara Modu">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -319,7 +417,7 @@
                 data-tilt-max="10" style="transition-delay: 300ms;">
                 <div class="card-shine"></div>
                 <div class="absolute inset-0">
-                    <img src="assets/water_v2.png?v=7"
+                    <img src="assets/water_v2.png?v=8"
                         class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
                         alt="Su Modu">
                     <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
@@ -428,9 +526,46 @@
                         <div class="text-sm text-gray-500" data-i18n="air.time">Uçuş Süresi</div>
                     </div>
                 </div>
+
+                <!-- Blueprint Toggle -->
+                <button id="air-blueprint-toggle"
+                    class="mt-8 group flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                    <div class="relative w-6 h-6">
+                        <svg class="w-6 h-6 absolute transition-all duration-300 group-hover:opacity-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                            </path>
+                        </svg>
+                        <svg class="w-6 h-6 absolute opacity-0 transition-all duration-300 group-hover:opacity-100 text-cyan-400"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
+                            </path>
+                        </svg>
+                    </div>
+                    <span class="font-mono font-bold tracking-wider text-sm">TEKNİK X-RAY MODU</span>
+                </button>
             </div>
-            <div class="order-2 md:order-2 reveal" style="transition-delay: 200ms;">
-                <img src="assets/air_v5.png?v=7" alt="Air Mode"
+            <div class="order-2 md:order-2 reveal relative group" id="air-image-container"
+                style="transition-delay: 200ms;">
+                <div class="blueprint-grid rounded-lg"></div>
+
+                <!-- Hotspots -->
+                <div class="hotspot" style="top: 35%; left: 50%;">
+                    <div class="tooltip">AI İşlemci Modülü</div>
+                </div>
+                <div class="hotspot" style="top: 25%; left: 25%;">
+                    <div class="tooltip">Fırçasız Motorlar</div>
+                </div>
+                <div class="hotspot" style="top: 25%; left: 75%;">
+                    <div class="tooltip">Karbon Fiber Pervane</div>
+                </div>
+                <div class="hotspot" style="top: 70%; left: 50%;">
+                    <div class="tooltip">Amfibik İniş Takımı</div>
+                </div>
+
+                <img src="assets/air_v5.png?v=8" alt="Air Mode" id="air-main-img"
                     class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
             </div>
         </div>
@@ -440,7 +575,7 @@
     <section id="land" class="py-24 px-6 md:px-12 border-t border-white/5">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div class="order-2 md:order-1 reveal">
-                <img src="assets/land_v2.png?v=7" alt="Land Mode"
+                <img src="assets/land_v2.png?v=8" alt="Land Mode"
                     class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
             </div>
             <div class="order-1 md:order-2 space-y-6 reveal" style="transition-delay: 200ms;">
@@ -483,7 +618,7 @@
                 </div>
             </div>
             <div class="order-2 md:order-2 reveal" style="transition-delay: 200ms;">
-                <img src="assets/water_v2.png?v=7" alt="Water Mode"
+                <img src="assets/water_v2.png?v=8" alt="Water Mode"
                     class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
             </div>
         </div>
@@ -748,7 +883,7 @@
                     <div class="swiper-slide">
                         <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
                             onclick="openLightbox(0)">
-                            <img src="assets/gallery/gallery-1.png?v=7"
+                            <img src="assets/gallery/gallery-1.png?v=8"
                                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 alt="Gallery 1">
                             <div

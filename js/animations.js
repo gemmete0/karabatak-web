@@ -127,5 +127,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 6. Blueprint / X-Ray Toggle Logic
+    const blueprintToggle = document.getElementById('air-blueprint-toggle');
+    const airContainer = document.getElementById('air-image-container');
+
+    if (blueprintToggle && airContainer) {
+        blueprintToggle.addEventListener('click', () => {
+            const isBlueprint = airContainer.classList.toggle('blueprint-mode');
+
+            // Sound Effect Placeholder (future)
+            // playTechSound();
+
+            if (isBlueprint) {
+                gsap.to(blueprintToggle, { borderColor: "#22d3ee", color: "#22d3ee" }); // Cyan
+                // Flash effect
+                gsap.fromTo(airContainer, { filter: "brightness(2)" }, { filter: "brightness(1)", duration: 0.2 });
+            } else {
+                gsap.to(blueprintToggle, { borderColor: "rgba(255,255,255,0.1)", color: "white" });
+            }
+        });
+    }
+
     console.log("GSAP Animations Initialized (Premium Mode)");
 });
