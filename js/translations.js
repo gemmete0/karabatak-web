@@ -14,6 +14,7 @@ const translations = {
         "hero.land": "Kara",
         "hero.water": "Su",
         "hero.download": "Broşürü İndir",
+        "unit.min": "dk",
 
         // Vision
         "vision.title": "Sınırları Aşan <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500'>Vizyon</span>",
@@ -28,6 +29,7 @@ const translations = {
         "air.subtitle": "Sessiz. Hızlı. Kararlı.",
         "air.desc": "İHA'nın gövdesi, düşük sürtünme ve yüksek kaldırma kapasitesine sahip olacak şekilde tasarlanmıştır. H-Frame yapısının aerodinamik avantajları kullanılarak, hava akışının düzgün bir şekilde yönlendirilmesi sağlanmıştır. Ayrıca, kanatların formu ve yerleşimi stabiliteyi artırarak manevra kabiliyetini geliştirmektedir.",
         "air.time": "Uçuş Süresi",
+        "air.xray": "TEKNİK X-RAY MODU",
 
         // Land Mode
         "land.title": "Kara Modu",
@@ -116,7 +118,67 @@ const translations = {
         // Footer
         "footer.contact": "İletişim",
         "footer.download": "Tanıtım Dosyasını İndir (PDF)",
-        "footer.rights": "&copy; 2025 Karabatak UAV Project. Tüm hakları saklıdır."
+        "footer.rights": "&copy; 2025 Karabatak UAV Project. Tüm hakları saklıdır.",
+
+        // Gölge (New)
+        "golge.hero.badge": "YENİ NESİL",
+        "golge.hero.title": "GÖLGE <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-gray-400'>İHA Sistemi</span>",
+        "golge.hero.desc": "Hava ve kara ortamlarında koordineli hareket edebilen, silindir formunda <strong>hibrit</strong> ve <strong>yarı otonom</strong> keşif platformu.",
+        "golge.hero.badge.hybrid": "Hibrit Yapı",
+        "golge.hero.badge.audio": "Ses Kaydı",
+        "golge.hero.badge.stealth": "Gizli Gözlem",
+        "golge.hero.mode.flight": "UÇUŞ MODU",
+        "golge.hero.mode.land": "KARA MODU",
+        "golge.mission.title": "Görev Tanımı",
+        "golge.mission.desc1": "Sistemin temel mantığı, <strong>uçuş kabiliyeti</strong> ile hedef bölgeye hızlı ve etkin bir şekilde ulaşmak, ardından <strong>kompakt boyutlarının</strong> sağladığı avantajla stratejik noktalarda konumlanarak veri toplamaktır.",
+        "golge.mission.desc2": "Gölge İHA, belirlenen görev sahasına ulaştığında kamera aracılığı ile çevre gözlemlenir. Ortam uygun ise kara moduna geçiş sağlanır ve gövde üzerindeki <strong>tekerlekler sayesinde</strong> stabilize bir şekilde ilerler. Cihazın küçük ölçekli yatay mimarisi, alçak zeminlerde veya dikkat çekmeyen noktalarda kolayca ilerleyebilmesini ve ideal gözlem konumuna yerleşmesini sağlar.",
+        "golge.capabilities.title": "Operasyonel Yetenekler",
+        "golge.cap.semi_auto": "Yarı Otonom Kontrol",
+        "golge.cap.semi_auto.desc": "Hava ve kara ortamlarında koordineli hareket edebilen akıllı kontrol mimarisi.",
+        "golge.cap.rth": "Otonom Eve Dönüş",
+        "golge.cap.rth.desc": "Görev tamamlandığında sistem otomatik olarak uçuş moduna geçer ve güvenli bir şekilde başlangıç noktasına döner.",
+        "golge.cap.indoor": "İç Mekan İstihbaratı",
+        "golge.cap.indoor.desc": "Özellikle kapalı alan keşiflerinde sürekli ses aktarımı ve kaydı ile tam kapsamlı istihbarat sağlar.",
+        "golge.features.title": "Özgün Tasarım",
+        "golge.feat.cylinder": "Silindir Gövde",
+        "golge.feat.cylinder.desc": "Pervaneler silindir gövde içerisinden açılır. Dikey kalkış ve uçuş yapabilmesine olanak tanırken, kapandığında kompakt bir form alır.",
+        "golge.feat.drive": "Aktif Sürüş",
+        "golge.feat.drive.desc": "Kara modunda gövdenin dış yüzeyi aktif bir sürüş mekanizmasına dönüşür. Tekerlekler sayesinde zorlu yüzeylerde ilerler.",
+        "golge.feat.security": "Veri Güvenliği",
+        "golge.feat.security.desc": "Görüntü ve ses verilerini eş zamanlı yer istasyonuna aktarır ve kaydeder. Sinyal kesintisinde bile veri bütünlüğü korunur.",
+        "golge.specs.title": "Sistem Özellikleri",
+        "golge.specs.subtitle": "Teknik Veriler",
+        "golge.spec.weight": "AĞIRLIK",
+        "golge.spec.weight.desc": "Operasyonel kalkış ağırlığı",
+        "golge.spec.range": "MENZİL",
+        "golge.spec.range.desc": "Etkili veri aktarım menzili",
+        "golge.spec.autonomy": "OTONOMİ",
+        "golge.spec.autonomy.desc": "Yarı otonom sürüş ve uçuş",
+        "golge.spec.security": "GÜVENLİK",
+        "golge.spec.security.desc": "Kriptolu veri iletişimi",
+
+        // Gallery
+        "gallery.title": "Görsel Galeri",
+        "gallery.desc": "Karabatak İHA'nın operasyonel yeteneklerini ve tasarım detaylarını keşfedin.",
+        "gallery.high_altitude": "Yüksek İrtifa Keşfi",
+        "gallery.rough_terrain": "Zorlu Arazi Görevi",
+        "gallery.underwater": "Su Altı Operasyonu",
+        "gallery.modular": "Modüler Tasarım",
+        "gallery.field_test": "Saha Testleri",
+        "tags.system": "SİSTEM",
+        "tags.air": "HAVA MODU",
+        "tags.land": "KARA MODU",
+        "tags.water": "SU MODU",
+        "tags.test": "TEST",
+
+        // Form
+        "form.name": "İsim Soyisim",
+        "form.email": "E-posta Adresi",
+        "form.message": "Mesajınız",
+        "form.name.placeholder": "Adınız",
+        "form.email.placeholder": "ornek@email.com",
+        "form.message.placeholder": "Mesajınızı buraya yazın...",
+        "form.submit": "Gönder"
     },
     en: {
         // Nav
@@ -133,6 +195,7 @@ const translations = {
         "hero.land": "Land",
         "hero.water": "Water",
         "hero.download": "Download Brochure",
+        "unit.min": "min",
 
         // Vision
         "vision.title": "Vision Beyond <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500'>Borders</span>",
@@ -147,6 +210,7 @@ const translations = {
         "air.subtitle": "Silent. Fast. Decisive.",
         "air.desc": "Designed for low drag and high lift capability. Utilizing the aerodynamic advantages of the H-Frame structure, airflow is guided smoothly. The form and placement of the wings enhance maneuverability by increasing stability.",
         "air.time": "Flight Time",
+        "air.xray": "TECHNICAL X-RAY MODE",
 
         // Land Mode
         "land.title": "Land Mode",
@@ -235,6 +299,66 @@ const translations = {
         // Footer
         "footer.contact": "Contact",
         "footer.download": "Download Brochure (PDF)",
-        "footer.rights": "&copy; 2025 Karabatak UAV Project. All rights reserved."
+        "footer.rights": "&copy; 2025 Karabatak UAV Project. All rights reserved.",
+
+        // Gölge (New)
+        "golge.hero.badge": "NEXT GEN",
+        "golge.hero.title": "GOLGE <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-gray-400'>UAV System</span>",
+        "golge.hero.desc": "Cylindrical <strong>hybrid</strong> and <strong>semi-autonomous</strong> reconnaissance platform capable of coordinated movement in air and land environments.",
+        "golge.hero.badge.hybrid": "Hybrid Structure",
+        "golge.hero.badge.audio": "Audio Recording",
+        "golge.hero.badge.stealth": "Stealth Observation",
+        "golge.hero.mode.flight": "FLIGHT MODE",
+        "golge.hero.mode.land": "LAND MODE",
+        "golge.mission.title": "Mission Definition",
+        "golge.mission.desc1": "The core logic of the system is to reach the target area quickly and effectively with <strong>flight capability</strong>, then to collect data by positioning at strategic points with the advantage of its <strong>compact size</strong>.",
+        "golge.mission.desc2": "When Golge UAV reaches the designated mission area, the environment is observed via camera. If the environment is suitable, it switches to land mode and moves stably thanks to the <strong>wheels on the body</strong>. The device's small-scale horizontal architecture allows it to move easily on low grounds or unnoticed points and settle into the ideal observation position.",
+        "golge.capabilities.title": "Operational Capabilities",
+        "golge.cap.semi_auto": "Semi-Autonomous Control",
+        "golge.cap.semi_auto.desc": "Intelligent control architecture capable of coordinated movement in air and land environments.",
+        "golge.cap.rth": "Autonomous RTH",
+        "golge.cap.rth.desc": "When the mission is completed, the system automatically switches to flight mode and returns safely to the starting point.",
+        "golge.cap.indoor": "Indoor Intelligence",
+        "golge.cap.indoor.desc": "Provides comprehensive intelligence with continuous audio transmission and recording, especially in indoor reconnaissance.",
+        "golge.features.title": "Unique Design",
+        "golge.feat.cylinder": "Cylindrical Body",
+        "golge.feat.cylinder.desc": "Propellers unfold from within the cylindrical body. While allowing vertical takeoff and flight, it takes a compact form when closed.",
+        "golge.feat.drive": "Active Driving",
+        "golge.feat.drive.desc": "In land mode, the outer surface of the body transforms into an active driving mechanism. It moves on difficult surfaces thanks to wheels.",
+        "golge.feat.security": "Data Security",
+        "golge.feat.security.desc": "Transmits and records video and audio data to the ground station simultaneously. Data integrity is preserved even in signal loss.",
+        "golge.specs.title": "System Specifications",
+        "golge.specs.subtitle": "Technical Data",
+        "golge.spec.weight": "WEIGHT",
+        "golge.spec.weight.desc": "Operational takeoff weight",
+        "golge.spec.range": "RANGE",
+        "golge.spec.range.desc": "Effective data transmission range",
+        "golge.spec.autonomy": "AUTONOMY",
+        "golge.spec.autonomy.desc": "Semi-autonomous driving and flight",
+        "golge.spec.security": "SECURITY",
+        "golge.spec.security.desc": "Encrypted data communication",
+
+        // Gallery
+        "gallery.title": "Visual Gallery",
+        "gallery.desc": "Explore the operational capabilities and design details of Karabatak UAV.",
+        "gallery.high_altitude": "High Altitude Recon",
+        "gallery.rough_terrain": "Rough Terrain Mission",
+        "gallery.underwater": "Underwater Operation",
+        "gallery.modular": "Modular Design",
+        "gallery.field_test": "Field Tests",
+        "tags.system": "SYSTEM",
+        "tags.air": "AIR MODE",
+        "tags.land": "LAND MODE",
+        "tags.water": "WATER MODE",
+        "tags.test": "TEST",
+
+        // Form
+        "form.name": "Full Name",
+        "form.email": "Email Address",
+        "form.message": "Your Message",
+        "form.name.placeholder": "Your Name",
+        "form.email.placeholder": "example@email.com",
+        "form.message.placeholder": "Write your message here...",
+        "form.submit": "Send"
     }
 };

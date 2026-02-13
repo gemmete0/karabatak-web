@@ -279,6 +279,152 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
+
+        /* Laser Scan Animation */
+        @keyframes scan {
+
+            0%,
+            100% {
+                top: 0%;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            50% {
+                top: 100%;
+                opacity: 1;
+            }
+        }
+
+        .laser-scan {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #a855f7;
+            /* Purple-500 */
+            box-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+            animation: scan 4s linear infinite;
+            z-index: 30;
+        }
+
+        .scan-overlay {
+            background: linear-gradient(to bottom, rgba(168, 85, 247, 0.1) 0%, transparent 20%);
+            animation: scan 4s linear infinite;
+        }
+
+        /* Atmospheric Depth (Gölge) */
+        .golge-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #581c87;
+            /* purple-900 */
+            top: -10%;
+            left: -10%;
+            animation: float-orb-1 20s infinite alternate ease-in-out;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #1e1b4b;
+            /* indigo-950 */
+            bottom: -20%;
+            right: -10%;
+            animation: float-orb-2 25s infinite alternate ease-in-out;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #4c1d95;
+            /* violet-800 */
+            top: 40%;
+            left: 40%;
+            animation: float-orb-3 22s infinite alternate ease-in-out;
+        }
+
+        @keyframes float-orb-1 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, 100px) scale(1.1);
+            }
+        }
+
+        @keyframes float-orb-2 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(-50px, -50px) scale(1.2);
+            }
+        }
+
+        @keyframes float-orb-3 {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(30px, -40px) scale(0.9);
+            }
+        }
+
+        /* Minimalist Aesthetic Cursor */
+        body.golge-mode {
+            cursor: none;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: exclusion;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, opacity 0.3s ease;
+            display: none;
+        }
+
+        body.golge-mode .custom-cursor {
+            display: block;
+        }
+
+        /* Hover State - Expansion */
+        .custom-cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+        }
     </style>
 </head>
 
@@ -291,10 +437,26 @@
             <img src="assets/logo.png?v=8" alt="Karabatak Logo" class="h-24 w-auto object-contain">
         </a>
         <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-            <a href="#hero" class="nav-link hover:text-white transition-colors" data-i18n="nav.home">Ana Sayfa</a>
-            <a href="#vision" class="nav-link hover:text-white transition-colors" data-i18n="nav.vision">Vizyon</a>
-            <a href="#gallery" class="nav-link hover:text-white transition-colors" data-i18n="nav.gallery">Galeri</a>
-            <a href="#specs" class="nav-link hover:text-white transition-colors" data-i18n="nav.specs">Özellikler</a>
+            <!-- Karabatak Nav Links -->
+            <div id="nav-karabatak-links" class="flex items-center space-x-8">
+                <a href="#hero" class="nav-link hover:text-white transition-colors" data-i18n="nav.home">Ana Sayfa</a>
+                <a href="#vision" class="nav-link hover:text-white transition-colors" data-i18n="nav.vision">Vizyon</a>
+                <a href="#gallery" class="nav-link hover:text-white transition-colors"
+                    data-i18n="nav.gallery">Galeri</a>
+                <a href="#specs" class="nav-link hover:text-white transition-colors"
+                    data-i18n="nav.specs">Özellikler</a>
+            </div>
+            <!-- Project Switcher -->
+            <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10 mr-4">
+                <button onclick="switchProject('karabatak')" id="btn-karabatak"
+                    class="project-btn px-4 py-1.5 rounded-full text-sm transition-all text-black font-bold bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                    KARABATAK
+                </button>
+                <button onclick="switchProject('golge')" id="btn-golge"
+                    class="project-btn px-4 py-1.5 rounded-full text-sm transition-all text-gray-400 hover:text-white">
+                    GÖLGE
+                </button>
+            </div>
 
             <!-- Language Switcher -->
             <div class="flex items-center bg-white/5 rounded-full p-1 border border-white/10">
@@ -327,14 +489,18 @@
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu"
             class="fixed inset-0 bg-deepblack/95 backdrop-blur-xl z-40 hidden flex flex-col items-center justify-center space-y-8 opacity-0 transition-opacity duration-300">
-            <a href="#hero" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
-                data-i18n="nav.home">Ana Sayfa</a>
-            <a href="#vision" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
-                data-i18n="nav.vision">Vizyon</a>
-            <a href="#gallery" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
-                data-i18n="nav.gallery">Galeri</a>
-            <a href="#specs" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
-                data-i18n="nav.specs">Özellikler</a>
+
+            <!-- Karabatak Mobile Links -->
+            <div id="mobile-karabatak-links" class="flex flex-col items-center space-y-8">
+                <a href="#hero" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
+                    data-i18n="nav.home">Ana Sayfa</a>
+                <a href="#vision" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
+                    data-i18n="nav.vision">Vizyon</a>
+                <a href="#gallery" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
+                    data-i18n="nav.gallery">Galeri</a>
+                <a href="#specs" class="mobile-link text-3xl font-bold text-gray-300 hover:text-white"
+                    data-i18n="nav.specs">Özellikler</a>
+            </div>
 
             <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
                 class="mobile-link text-3xl font-bold text-gray-300 hover:text-white flex items-center gap-2">
@@ -358,1114 +524,1583 @@
     </nav>
 
     <!-- BÖLÜM 1: HERO (3 Kartlı Yapı) -->
-    <section id="hero"
-        class="min-h-screen flex flex-col items-center justify-center p-6 md:p-12 pt-24 relative overflow-hidden">
-        <!-- Aurora Background -->
-        <div class="aurora-bg">
-            <div class="aurora-blob blob-1"></div>
-            <div class="aurora-blob blob-2"></div>
-            <div class="aurora-blob blob-3"></div>
-        </div>
-        <canvas id="particles-canvas"
-            class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
-        <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-7xl h-[70vh] mb-8">
-
-            <!-- Kart 1: Hava -->
-            <!-- Kart 1: Hava -->
-            <a href="#air"
-                class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-air hover:shadow-[0_0_80px_rgba(59,130,246,0.4)] hover:-translate-y-4 reveal block"
-                data-tilt-max="10" style="transition-delay: 100ms;">
-                <div class="card-shine"></div>
-                <div class="absolute inset-0">
-                    <img src="assets/air_v5.png?v=8"
-                        class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
-                        alt="Hava Modu">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                </div>
-                <div class="absolute bottom-0 left-0 p-10 z-10">
-                    <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-air transition-colors drop-shadow-lg"
-                        data-i18n="hero.air">
-                        Hava</h2>
-                    <div class="h-1 w-12 bg-air rounded-full group-hover:w-24 transition-all duration-500"></div>
-                </div>
-            </a>
-
-            <!-- Kart 2: Kara -->
-            <!-- Kart 2: Kara -->
-            <a href="#land"
-                class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-land hover:shadow-[0_0_80px_rgba(249,115,22,0.4)] hover:-translate-y-4 reveal block"
-                data-tilt-max="10" style="transition-delay: 200ms;">
-                <div class="card-shine"></div>
-                <div class="absolute inset-0">
-                    <img src="assets/land_v2.png?v=8"
-                        class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
-                        alt="Kara Modu">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                </div>
-                <div class="absolute bottom-0 left-0 p-10 z-10">
-                    <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-land transition-colors drop-shadow-lg"
-                        data-i18n="hero.land">
-                        Kara</h2>
-                    <div class="h-1 w-12 bg-land rounded-full group-hover:w-24 transition-all duration-500"></div>
-                </div>
-            </a>
-
-            <!-- Kart 3: Su -->
-            <!-- Kart 3: Su -->
-            <a href="#water"
-                class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-water hover:shadow-[0_0_80px_rgba(20,184,166,0.4)] hover:-translate-y-4 reveal block"
-                data-tilt-max="10" style="transition-delay: 300ms;">
-                <div class="card-shine"></div>
-                <div class="absolute inset-0">
-                    <img src="assets/water_v2.png?v=8"
-                        class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
-                        alt="Su Modu">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                </div>
-                <div class="absolute bottom-0 left-0 p-10 z-10">
-                    <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-water transition-colors drop-shadow-lg"
-                        data-i18n="hero.water">
-                        Su</h2>
-                    <div class="h-1 w-12 bg-water rounded-full group-hover:w-24 transition-all duration-500"></div>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Hero CTA Button -->
-        <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
-            class="magnetic-btn group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] reveal"
-            style="transition-delay: 400ms;">
+    <!-- KARABATAK PROJECT CONTENT -->
+    <div id="project-karabatak" class="project-content">
+        <section id="hero"
+            class="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 pt-24 relative overflow-hidden">
+            <!-- Aurora Background -->
+            <div class="aurora-bg">
+                <div class="aurora-blob blob-1"></div>
+                <div class="aurora-blob blob-2"></div>
+                <div class="aurora-blob blob-3"></div>
+            </div>
+            <canvas id="particles-canvas"
+                class="absolute inset-0 w-full h-full pointer-events-none z-0 opacity-40"></canvas>
             <div
-                class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700">
-            </div>
-            <span class="relative flex items-center gap-3">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                </svg>
-                <span data-i18n="hero.download">Broşürü İndir</span>
-            </span>
-        </a>
-    </section>
+                class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-[95%] lg:max-w-screen-2xl h-[70vh] mb-8">
 
-    <!-- BÖLÜM 2: VİZYON (Split Layout) -->
-    <section id="vision" class="relative z-20 bg-black py-24 px-6 md:px-12 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <!-- Sol: Metin -->
-            <div class="space-y-8 reveal">
-                <h2 class="text-5xl md:text-6xl font-bold tracking-tight leading-tight" data-i18n="vision.title">
-                    Sınırları Aşan <br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Vizyon</span>
-                </h2>
-                <p class="text-xl text-gray-400 leading-relaxed" data-i18n="vision.desc">
-                    Karabatak projesi, otonom sistemlerin sınırlarını zorlayarak hava, kara ve su ortamlarında
-                    kesintisiz operasyon kabiliyeti sunar. Hibrit yapısı sayesinde her türlü zorlu koşulda görevini
-                    başarıyla tamamlar.
-                </p>
+                <!-- Kart 1: Hava -->
+                <!-- Kart 1: Hava -->
+                <a href="#air"
+                    class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-air hover:shadow-[0_0_80px_rgba(59,130,246,0.4)] hover:-translate-y-4 reveal block"
+                    data-tilt-max="10" style="transition-delay: 100ms;">
+                    <div class="card-shine"></div>
+                    <div class="absolute inset-0">
+                        <img src="assets/air_v5.png?v=8"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
+                            alt="Hava Modu">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-10 z-10">
+                        <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-air transition-colors drop-shadow-lg"
+                            data-i18n="hero.air">
+                            Hava</h2>
+                        <div class="h-1 w-12 bg-air rounded-full group-hover:w-24 transition-all duration-500"></div>
+                    </div>
+                </a>
+
+                <!-- Kart 2: Kara -->
+                <!-- Kart 2: Kara -->
+                <a href="#land"
+                    class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-land hover:shadow-[0_0_80px_rgba(249,115,22,0.4)] hover:-translate-y-4 reveal block"
+                    data-tilt-max="10" style="transition-delay: 200ms;">
+                    <div class="card-shine"></div>
+                    <div class="absolute inset-0">
+                        <img src="assets/land_v2.png?v=8"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
+                            alt="Kara Modu">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-10 z-10">
+                        <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-land transition-colors drop-shadow-lg"
+                            data-i18n="hero.land">
+                            Kara</h2>
+                        <div class="h-1 w-12 bg-land rounded-full group-hover:w-24 transition-all duration-500"></div>
+                    </div>
+                </a>
+
+                <!-- Kart 3: Su -->
+                <!-- Kart 3: Su -->
+                <a href="#water"
+                    class="tilt-card group relative rounded-[2rem] overflow-hidden border border-white/10 bg-zinc-900/40 backdrop-blur-sm transition-all duration-500 hover:border-water hover:shadow-[0_0_80px_rgba(20,184,166,0.4)] hover:-translate-y-4 reveal block"
+                    data-tilt-max="10" style="transition-delay: 300ms;">
+                    <div class="card-shine"></div>
+                    <div class="absolute inset-0">
+                        <img src="assets/water_v2.png?v=8"
+                            class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 group-hover:scale-110"
+                            alt="Su Modu">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-10 z-10">
+                        <h2 class="text-4xl font-bold text-white mb-2 group-hover:text-water transition-colors drop-shadow-lg"
+                            data-i18n="hero.water">
+                            Su</h2>
+                        <div class="h-1 w-12 bg-water rounded-full group-hover:w-24 transition-all duration-500"></div>
+                    </div>
+                </a>
+
             </div>
 
-            <!-- Sağ: İkon Izgarası -->
-            <div class="grid grid-cols-2 gap-4 reveal" style="transition-delay: 200ms;">
-                <!-- Kutu 1 -->
+            <!-- Hero CTA Button -->
+            <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
+                class="magnetic-btn group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] reveal"
+                style="transition-delay: 400ms;">
                 <div
-                    class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
-                    <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/50 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700">
+                </div>
+                <span class="relative flex items-center gap-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
-                    <h3 class="font-semibold text-lg" data-i18n="vision.autonomous">Tam Otonom</h3>
-                </div>
-                <!-- Kutu 2 -->
+                    <span data-i18n="hero.download">Broşürü İndir</span>
+                </span>
+            </a>
+        </section>
+
+        <!-- BÖLÜM 2: VİZYON (Split Layout) -->
+        <section id="vision" class="relative z-20 bg-black py-24 px-4 md:px-6 max-w-[95%] lg:max-w-screen-2xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <!-- Sol: Metin -->
                 <div
-                    class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
-                    <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
-                        </path>
-                    </svg>
-                    <h3 class="font-semibold text-lg" data-i18n="vision.durable">Dayanıklı</h3>
-                </div>
-                <!-- Kutu 3 -->
-                <div
-                    class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
-                    <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                    <h3 class="font-semibold text-lg" data-i18n="vision.range">Uzun Menzil</h3>
-                </div>
-                <!-- Kutu 4 -->
-                <div
-                    class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
-                    <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
-                        </path>
-                    </svg>
-                    <h3 class="font-semibold text-lg" data-i18n="vision.ai">Yapay Zeka</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BÖLÜM 3: HAVA MODU (Zig-Zag) -->
-    <section id="air" class="py-24 px-6 md:px-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-1 md:order-1 space-y-6 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-air" data-i18n="air.title">Hava Modu</h2>
-                <h3 class="text-2xl text-white font-medium" data-i18n="air.subtitle">Sessiz. Hızlı. Kararlı.</h3>
-                İHA'nın gövdesi, düşük sürtünme ve yüksek kaldırma kapasitesine sahip olacak şekilde tasarlanmıştır.
-                H-Frame yapısının aerodinamik avantajları kullanılarak, hava akışının düzgün bir şekilde yönlendirilmesi
-                sağlanmıştır. Ayrıca, kanatların formu ve yerleşimi stabiliteyi artırarak manevra kabiliyetini
-                geliştirmektedir.
-                </p>
-                <div class="grid grid-cols-1 gap-4 pt-4">
-                    <div>
-                        <div class="text-3xl font-bold text-white">12 dk</div>
-                        <div class="text-sm text-gray-500" data-i18n="air.time">Uçuş Süresi</div>
-                    </div>
+                    class="space-y-8 reveal bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10">
+                    <h2 class="text-5xl md:text-6xl font-bold tracking-tight leading-tight" data-i18n="vision.title">
+                        Sınırları Aşan <br>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Vizyon</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 leading-relaxed" data-i18n="vision.desc">
+                        Karabatak projesi, otonom sistemlerin sınırlarını zorlayarak hava, kara ve su ortamlarında
+                        kesintisiz operasyon kabiliyeti sunar. Hibrit yapısı sayesinde her türlü zorlu koşulda görevini
+                        başarıyla tamamlar.
+                    </p>
                 </div>
 
-                <!-- Blueprint Toggle -->
-                <button id="air-blueprint-toggle"
-                    class="mt-8 group flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
-                    <div class="relative w-6 h-6">
-                        <svg class="w-6 h-6 absolute transition-all duration-300 group-hover:opacity-0" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
-                            </path>
-                        </svg>
-                        <svg class="w-6 h-6 absolute opacity-0 transition-all duration-300 group-hover:opacity-100 text-cyan-400"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
-                            </path>
-                        </svg>
-                    </div>
-                    <span class="font-mono font-bold tracking-wider text-sm">TEKNİK X-RAY MODU</span>
-                </button>
-            </div>
-            <div class="order-2 md:order-2 reveal relative group" id="air-image-container"
-                style="transition-delay: 200ms;">
-                <div class="blueprint-grid rounded-lg"></div>
-
-                <!-- Hotspots -->
-                <div class="hotspot" style="top: 35%; left: 50%;">
-                    <div class="tooltip">AI İşlemci Modülü</div>
-                </div>
-                <div class="hotspot" style="top: 25%; left: 25%;">
-                    <div class="tooltip">Fırçasız Motorlar</div>
-                </div>
-                <div class="hotspot" style="top: 25%; left: 75%;">
-                    <div class="tooltip">Karbon Fiber Pervane</div>
-                </div>
-                <div class="hotspot" style="top: 70%; left: 50%;">
-                    <div class="tooltip">Amfibik İniş Takımı</div>
-                </div>
-
-                <img src="assets/air_v5.png?v=8" alt="Air Mode" id="air-main-img"
-                    class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
-            </div>
-        </div>
-    </section>
-
-    <!-- BÖLÜM 4: KARA MODU (Zig-Zag) -->
-    <section id="land" class="py-24 px-6 md:px-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-2 md:order-1 reveal">
-                <img src="assets/land_v2.png?v=8" alt="Land Mode"
-                    class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
-            </div>
-            <div class="order-1 md:order-2 space-y-6 reveal" style="transition-delay: 200ms;">
-                <h2 class="text-4xl md:text-5xl font-bold text-land" data-i18n="land.title">Kara Modu</h2>
-                <h3 class="text-2xl text-white font-medium" data-i18n="land.subtitle">Sağlam. Güvenilir. Hazır.</h3>
-                İHA'nın kara ortamında hareket edebilmesi için aerodinamik yapı bazında, zemine temas sırasında
-                stabilitenin arttırılması üzerine odaklanılmıştır. Kanatların dış kısmında yer alan kauçuk malzeme,
-                tekerlek görevi görmesi amacıyla seçilmiştir ve karada hareket ederken zemine tutunmayı kolaylaştırır.
-                </p>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <div>
-                        <div class="text-3xl font-bold text-white" data-i18n="land.hybrid">Hibrit</div>
-                        <div class="text-sm text-gray-500" data-i18n="land.structure">Yapı</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold text-white" data-i18n="land.carbon">Carbon</div>
-                        <div class="text-sm text-gray-500" data-i18n="land.body">Gövde</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BÖLÜM 5: SU MODU (Zig-Zag) -->
-    <!-- BÖLÜM 5: SU MODU (Zig-Zag) -->
-    <section id="water" class="py-24 px-6 md:px-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div class="order-1 md:order-1 space-y-6 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold text-water" data-i18n="water.title">Su Modu</h2>
-                <h3 class="text-2xl text-white font-medium" data-i18n="water.subtitle">Derin. Sessiz. Keşif.</h3>
-                Su yüzeyinde stabilite ve manevra kolaylığı sağlamak için ayakların uç kısımları sivritilmiş ve
-                aerodinamik verimlilik ön planda tutulmuştur. Arka kanatların 60° dönerek su moduna geçiş yapabilmesi,
-                su yüzeyinde hareket edebilme kabiliyetini artıran önemli bir tasarım özelliğidir.
-                </p>
-                <div class="grid grid-cols-1 gap-4 pt-4">
-                    <div>
-                        <div class="text-3xl font-bold text-white">IP68</div>
-                        <div class="text-sm text-gray-500">Koruma</div>
-                    </div>
-                </div>
-            </div>
-            <div class="order-2 md:order-2 reveal" style="transition-delay: 200ms;">
-                <img src="assets/water_v2.png?v=8" alt="Water Mode"
-                    class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
-            </div>
-        </div>
-    </section>
-
-    <!-- BÖLÜM 6: SİSTEM BİLEŞENLERİ (Grid) -->
-    <section id="components" class="py-24 px-6 md:px-12 border-t border-white/5 bg-zinc-900/20">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 reveal" data-i18n="components.title">Sistem Bileşenleri</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" style="transition-delay: 200ms;">
-
-                <!-- Component 1: Flight Control -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                <!-- Sağ: İkon Izgarası -->
+                <div class="grid grid-cols-2 gap-4 reveal" style="transition-delay: 200ms;">
+                    <!-- Kutu 1 -->
                     <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.fc">Uçuş Kontrol</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.fc.desc">Pixhawk Cube Orange+ & Here4 GPS</p>
-                </div>
-
-                <!-- Component 2: Main Computer -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
-                    <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.computer">Ana Bilgisayar</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.computer.desc">Raspberry Pi 5 (16GB RAM)</p>
-                </div>
-
-                <!-- Component 3: Camera -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
-                    <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
-                            </path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.camera">Kamera Sistemi</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.camera.desc">IMX219-160 8MP IR-CUT</p>
-                </div>
-
-                <!-- Component 4: Telemetry -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
-                    <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0">
-                            </path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.telemetry">Telemetri</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.telemetry.desc">3DR V5 433MHz Uzun Menzil</p>
-                </div>
-
-                <!-- Component 5: Power -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
-                    <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
+                        <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
+                        <h3 class="font-semibold text-lg" data-i18n="vision.autonomous">Tam Otonom</h3>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.battery">Güç Kaynağı</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.battery.desc">Leopard Power 10000mAh 6S</p>
-                </div>
-
-                <!-- Component 6: Material -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                    <!-- Kutu 2 -->
                     <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                        class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
+                        <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
                             </path>
                         </svg>
+                        <h3 class="font-semibold text-lg" data-i18n="vision.durable">Dayanıklı</h3>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.material">Malzeme</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.material.desc">eSun PLA+ & Karbon Fiber</p>
-                </div>
-
-                <!-- Component 7: Actuators -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                    <!-- Kutu 3 -->
                     <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                        class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
+                        <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <h3 class="font-semibold text-lg" data-i18n="vision.range">Uzun Menzil</h3>
+                    </div>
+                    <!-- Kutu 4 -->
+                    <div
+                        class="bg-zinc-900/50 p-8 rounded-2xl border border-white/10 hover:bg-zinc-800/50 transition-colors">
+                        <svg class="w-8 h-8 text-white mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
                             </path>
                         </svg>
+                        <h3 class="font-semibold text-lg" data-i18n="vision.ai">Yapay Zeka</h3>
                     </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.actuators">Eyleyiciler</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.actuators.desc">Tower Pro MG946 & DC Motorlar</p>
-                </div>
-
-                <!-- Component 8: Sensors -->
-                <div
-                    class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
-                    <div
-                        class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
-                        <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.sensors">Sensörler</h3>
-                    <p class="text-sm text-gray-400" data-i18n="comp.sensors.desc">URM37 Ultrasonik & IMU</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- BÖLÜM 7: YAZILIM VE YAPAY ZEKA -->
-    <section class="py-24 px-6 md:px-12 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <!-- Left Side: Features -->
-            <div class="space-y-12 reveal">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-i18n="software.title">Yazılım ve
-                        Yapay Zeka</h2>
-                    <p class="text-gray-400 text-lg" data-i18n="software.desc">
-                        Karabatak, görevlerini yerine getirmek için gelişmiş algoritmalar ve yapay zeka modelleri
-                        kullanır.
+        <!-- BÖLÜM 3: HAVA MODU (Zig-Zag) -->
+        <section id="air" class="py-24 px-4 md:px-6 border-t border-white/5">
+            <div class="max-w-[95%] lg:max-w-screen-2xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div
+                    class="order-1 md:order-1 space-y-6 reveal bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10">
+                    <h2 class="text-4xl md:text-5xl font-bold text-air" data-i18n="air.title">Hava Modu</h2>
+                    <h3 class="text-2xl text-white font-medium" data-i18n="air.subtitle">Sessiz. Hızlı. Kararlı.</h3>
+                    <p class="text-gray-300 mt-4 leading-relaxed" data-i18n="air.desc">
+                        İHA'nın gövdesi, düşük sürtünme ve yüksek kaldırma kapasitesine sahip olacak şekilde
+                        tasarlanmıştır.
+                        H-Frame yapısının aerodinamik avantajları kullanılarak, hava akışının düzgün bir şekilde
+                        yönlendirilmesi
+                        sağlanmıştır. Ayrıca, kanatların formu ve yerleşimi stabiliteyi artırarak manevra kabiliyetini
+                        geliştirmektedir.
                     </p>
-                </div>
-
-                <div class="space-y-8">
-                    <!-- Feature 1: Vision -->
-                    <div class="flex gap-4">
-                        <div
-                            class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                            </svg>
-                        </div>
+                    <div class="grid grid-cols-1 gap-4 pt-4">
                         <div>
-                            <h3 class="text-lg font-bold text-white" data-i18n="soft.vision">Görüntü İşleme</h3>
-                            <p class="text-gray-400" data-i18n="soft.vision.desc">OpenCV ile nesne tespiti ve takip.</p>
+                            <div class="text-3xl font-bold text-white">12 <span data-i18n="unit.min">dk</span></div>
+                            <div class="text-sm text-gray-500" data-i18n="air.time">Uçuş Süresi</div>
                         </div>
                     </div>
-                    <!-- Feature 3 -->
-                    <div class="flex gap-4">
-                        <div
-                            class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                    <!-- Blueprint Toggle -->
+                    <button id="air-blueprint-toggle"
+                        class="mt-8 group flex items-center gap-3 px-6 py-3 bg-white/5 border border-white/10 rounded-full hover:bg-cyan-500/10 hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300">
+                        <div class="relative w-6 h-6">
+                            <svg class="w-6 h-6 absolute transition-all duration-300 group-hover:opacity-0" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                            <svg class="w-6 h-6 absolute opacity-0 transition-all duration-300 group-hover:opacity-100 text-cyan-400"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
                                 </path>
                             </svg>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-white" data-i18n="soft.crypto">Veri
-                                Güvenliği</h3>
-                            <p class="text-gray-400" data-i18n="soft.crypto.desc">CryptoJS ile uçtan uca
-                                şifreleme (AES-256).</p>
-                        </div>
-                    </div>
-                    <!-- Feature 4 -->
-                    <div class="flex gap-4">
-                        <div
-                            class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-bold text-white" data-i18n="soft.algo">Algoritmalar
-                            </h3>
-                            <p class="text-gray-400" data-i18n="soft.algo.desc">PID Kontrol ve Kalman
-                                Filtresi.</p>
-                        </div>
-                    </div>
+                        <span class="font-mono font-bold tracking-wider text-sm" data-i18n="air.xray">TEKNİK X-RAY
+                            MODU</span>
+                    </button>
                 </div>
-            </div>
-
-            <!-- Right Side: Code/Tech Visual -->
-            <div class="relative reveal" style="transition-delay: 200ms;">
-                <div
-                    class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-2xl opacity-20">
-                </div>
-                <div
-                    class="relative bg-black border border-white/10 rounded-2xl p-8 font-mono text-sm text-gray-300 overflow-hidden">
-                    <div class="flex gap-2 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <p><span class="text-purple-400">const</span> <span class="text-blue-400">mission</span> = {
-                        </p>
-                        <p class="pl-4"><span class="text-blue-400">mode</span>: <span
-                                class="text-green-400">'AUTONOMOUS'</span>,</p>
-                        <p class="pl-4"><span class="text-blue-400">target</span>: <span
-                                class="text-green-400">'DETECTED'</span>,</p>
-                        <p class="pl-4"><span class="text-blue-400">encryption</span>: <span
-                                class="text-green-400">'AES-256'</span>,</p>
-                        <p class="pl-4"><span class="text-blue-400">modules</span>: [</p>
-                        <p class="pl-8"><span class="text-green-400">'OpenCV'</span>,</p>
-                        <p class="pl-8"><span class="text-green-400">'ROS2'</span>,</p>
-                        <p class="pl-8"><span class="text-green-400">'PX4'</span></p>
-                        <p class="pl-4">]</p>
-                        <p>};</p>
-                        <p class="text-gray-500">// System initialized...</p>
-                        <p><span class="text-blue-400">startMission</span>(mission);</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-
-    <section id="gallery" class="py-24 px-6 md:px-12 bg-black border-t border-white/5 relative overflow-hidden">
-        <!-- Background Elements -->
-        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[100px]"></div>
-            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[100px]">
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 reveal" data-i18n="gallery.title">Görsel Galeri
-            </h2>
-            <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto reveal" data-i18n="gallery.subtitle">
-                Karabatak UAV'nin operasyonel yeteneklerini ve tasarım detaylarını keşfedin.
-            </p>
-
-            <!-- Swiper Slider -->
-            <div class="swiper gallery-slider reveal" style="transition-delay: 200ms;">
-                <div class="swiper-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="swiper-slide">
-                        <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
-                            onclick="openLightbox(0)">
-                            <img src="assets/gallery/gallery-1.png?v=8"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="Gallery 1">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
-                            </div>
-                            <div
-                                class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="text-air text-sm font-mono mb-2 block tracking-widest">HAVA MODU</span>
-                                <h3 class="text-2xl font-bold text-white">Yüksek İrtifa Keşfi</h3>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 2 -->
-                    <div class="swiper-slide">
-                        <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
-                            onclick="openLightbox(1)">
-                            <img src="assets/gallery/gallery-2.png"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="Gallery 2">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
-                            </div>
-                            <div
-                                class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="text-land text-sm font-mono mb-2 block tracking-widest">KARA MODU</span>
-                                <h3 class="text-2xl font-bold text-white">Zorlu Arazi Görevi</h3>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 3 -->
-                    <div class="swiper-slide">
-                        <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
-                            onclick="openLightbox(2)">
-                            <img src="assets/gallery/gallery-3.png"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="Gallery 3">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
-                            </div>
-                            <div
-                                class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="text-water text-sm font-mono mb-2 block tracking-widest">SU MODU</span>
-                                <h3 class="text-2xl font-bold text-white">Su Altı Operasyonu</h3>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 4 -->
-                    <div class="swiper-slide">
-                        <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
-                            onclick="openLightbox(3)">
-                            <img src="assets/gallery/gallery-4.png"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="Gallery 4">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
-                            </div>
-                            <div
-                                class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="text-gray-400 text-sm font-mono mb-2 block tracking-widest">SİSTEM</span>
-                                <h3 class="text-2xl font-bold text-white">Modüler Tasarım</h3>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Slide 5 -->
-                    <div class="swiper-slide">
-                        <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
-                            onclick="openLightbox(4)">
-                            <img src="assets/gallery/gallery-5.png"
-                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                alt="Gallery 5">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
-                            </div>
-                            <div
-                                class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="text-gray-400 text-sm font-mono mb-2 block tracking-widest">TEST</span>
-                                <h3 class="text-2xl font-bold text-white">Saha Testleri</h3>
-                            </div>
-                            <div
-                                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
-                                        </path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Pagination & Nav -->
-                <div class="swiper-pagination !bottom-0"></div>
-                <div
-                    class="swiper-button-prev !text-white !w-12 !h-12 !bg-black/50 !rounded-full !backdrop-blur-sm after:!text-lg hover:!bg-air transition-colors">
-                </div>
-                <div
-                    class="swiper-button-next !text-white !w-12 !h-12 !bg-black/50 !rounded-full !backdrop-blur-sm after:!text-lg hover:!bg-air transition-colors">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox"
-        class="fixed inset-0 z-[60] bg-black/95 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
-        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-gray-300 z-50">
-            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-        <button onclick="prevImage()" class="absolute left-6 text-white hover:text-gray-300 z-50 p-4">
-            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-            </svg>
-        </button>
-        <button onclick="nextImage()" class="absolute right-6 text-white hover:text-gray-300 z-50 p-4">
-            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-        </button>
-        <img id="lightbox-img" src=""
-            class="max-h-[65vh] max-w-[65vw] w-full h-full object-contain shadow-2xl rounded-lg transform scale-95 transition-transform duration-300"
-            alt="Full Screen">
-    </div>
-
-    <!-- BÖLÜM 8: TEKNİK ÖZELLİKLER (Bento Grid) -->
-    <section id="specs" class="py-24 px-6 md:px-12 bg-zinc-900/30">
-        <div class="max-w-5xl mx-auto">
-            <h2 class="text-4xl font-bold text-center mb-16 reveal" data-i18n="specs.title">Teknik
-                Özellikler</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal" style="transition-delay: 200ms;">
-                <!-- Kutu 1 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.takeoff_weight">
-                        Kalkış Ağırlığı</div>
-                    <div class="text-3xl font-mono font-bold text-white">5,392 g</div>
-                </div>
-                <!-- Kutu 2 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.empty_weight">Boş
-                        Ağırlık</div>
-                    <div class="text-3xl font-mono font-bold text-white">2,785 g</div>
-                </div>
-                <!-- Kutu 3 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.battery">Batarya
-                    </div>
-                    <div class="text-3xl font-mono font-bold text-white">10,000 mAh</div>
-                    <div class="text-xs text-gray-600 mt-1">6S LiPo</div>
-                </div>
-                <!-- Kutu 4 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.flight_time">Uçuş
-                        Süresi</div>
-                    <div class="text-3xl font-mono font-bold text-white">~12 dk</div>
-                </div>
-                <!-- Kutu 5 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.thrust">Toplam
-                        İtki</div>
-                    <div class="text-3xl font-mono font-bold text-white">13,420 g</div>
-                </div>
-                <!-- Kutu 6 -->
-                <div class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
-                    <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.motors">Motorlar
-                    </div>
-                    <div class="text-3xl font-mono font-bold text-white">4x X2812</div>
-                    <div class="text-xs text-gray-600 mt-1">Hobbywing</div>
-                </div>
-            </div>
-    </section>
-
-    <!-- BÖLÜM 9: OPERASYON SENARYOLARI (Expandable Cards) -->
-    <section id="scenarios" class="py-24 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 reveal" data-i18n="scenarios.title">Operasyon
-                Senaryoları</h2>
-
-            <div class="flex flex-col md:flex-row gap-4 h-[600px] reveal" style="transition-delay: 200ms;">
-
-                <!-- Rescue Card -->
-                <div
-                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
-                    <img src="assets/scenarios/rescue.png"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Search and Rescue">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-
-                    <div class="absolute bottom-0 left-0 p-8 w-full">
-                        <div
-                            class="w-12 h-12 rounded-full bg-red-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-red-500 border border-red-500/30">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
-                            data-i18n="scenarios.rescue.title">Arama & Kurtarma</h3>
-                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
-                            data-i18n="scenarios.rescue.desc">
-                            Zorlu hava koşullarında ve gece operasyonlarında termal görüş ile hayat kurtarır.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Inspection Card -->
-                <div
-                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
-                    <img src="assets/scenarios/inspection.png"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Inspection">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-
-                    <div class="absolute bottom-0 left-0 p-8 w-full">
-                        <div
-                            class="w-12 h-12 rounded-full bg-yellow-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-yellow-500 border border-yellow-500/30">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
-                            data-i18n="scenarios.inspection.title">Endüstriyel Denetim</h3>
-                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
-                            data-i18n="scenarios.inspection.desc">
-                            Petrol platformları ve enerji hatlarını güvenli mesafeden yüksek çözünürlükle denetler.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Delivery Card -->
-                <div
-                    class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
-                    <img src="assets/scenarios/delivery.png"
-                        class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        alt="Delivery">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
-
-                    <div class="absolute bottom-0 left-0 p-8 w-full">
-                        <div
-                            class="w-12 h-12 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-blue-500 border border-blue-500/30">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
-                            data-i18n="scenarios.delivery.title">Acil Teslimat</h3>
-                        <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
-                            data-i18n="scenarios.delivery.desc">
-                            Afet bölgelerine tıbbi malzeme ve acil yardım kitlerini hızla ulaştırır.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- BÖLÜM 9b: SCROLLYTELLING (Story Mode) -->
-    <!-- BÖLÜM 10: İLETİŞİM FORMU & FOOTER -->
-    <footer id="contact" class="py-20 bg-black border-t border-white/10 relative z-20">
-        <div class="max-w-7xl mx-auto px-6 md:px-12">
-
-            <div class="grid md:grid-cols-2 gap-16 mb-16">
-                <!-- Sol Taraf: İletişim Bilgileri -->
-                <div class="space-y-8 reveal">
-                    <h2 class="text-4xl font-bold mb-6" data-i18n="footer.contact">İletişim</h2>
-                    <p class="text-gray-400 text-lg mb-8" data-i18n="contact.desc">
-                        Projeyle ilgili sorularınız, sponsorluk teklifleriniz veya teknik detaylar için bize ulaşın.
-                    </p>
-
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
-                            <div
-                                class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <span class="text-lg">iletisim@karabatak.com</span>
-                        </div>
-                        <div class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
-                            <div
-                                class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <span class="text-lg">+90 555 000 00 00</span>
-                        </div>
-                    </div>
-
-                    <a href="assets/Karabatak_Brochure.pdf" download
-                        class="inline-flex items-center gap-2 text-sm text-air hover:text-white transition-colors mt-8">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-                        </svg>
-                        <span data-i18n="footer.download">Tanıtım Dosyasını İndir (PDF)</span>
-                    </a>
-                </div>
-
-                <!-- Sağ Taraf: İletişim Formu -->
-                <div class="bg-zinc-900/30 p-8 rounded-3xl border border-white/10 reveal"
+                <div class="order-2 md:order-2 reveal relative group" id="air-image-container"
                     style="transition-delay: 200ms;">
-                    <form action="https://formspree.io/f/xldqwpkq" method="POST" class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2"
-                                data-i18n="form.name">İsim Soyisim</label>
-                            <input type="text" name="name" id="name" required
-                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                                placeholder="Adınız">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-400 mb-2"
-                                data-i18n="form.email">E-posta Adresi</label>
-                            <input type="email" name="email" id="email" required
-                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                                placeholder="ornek@email.com">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2"
-                                data-i18n="form.message">Mesajınız</label>
-                            <textarea name="message" id="message" rows="4" required
-                                class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
-                                placeholder="Mesajınızı buraya yazın..."></textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
-                            <span data-i18n="form.submit">Gönder</span>
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
-                    </form>
+                    <div class="blueprint-grid rounded-lg"></div>
+
+                    <!-- Hotspots -->
+                    <div class="hotspot" style="top: 35%; left: 50%;">
+                        <div class="tooltip">AI İşlemci Modülü</div>
+                    </div>
+                    <div class="hotspot" style="top: 25%; left: 25%;">
+                        <div class="tooltip">Fırçasız Motorlar</div>
+                    </div>
+                    <div class="hotspot" style="top: 25%; left: 75%;">
+                        <div class="tooltip">Karbon Fiber Pervane</div>
+                    </div>
+                    <div class="hotspot" style="top: 70%; left: 50%;">
+                        <div class="tooltip">Amfibik İniş Takımı</div>
+                    </div>
+
+                    <img src="assets/air_v5.png?v=8" alt="Air Mode" id="air-main-img"
+                        class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
                 </div>
             </div>
+        </section>
+
+        <!-- BÖLÜM 4: KARA MODU (Zig-Zag) -->
+        <section id="land" class="py-24 px-4 md:px-6 border-t border-white/5">
+            <div class="max-w-[95%] lg:max-w-screen-2xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 reveal">
+                    <img src="assets/land_v2.png?v=8" alt="Land Mode"
+                        class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
+                </div>
+                <div class="order-1 md:order-2 space-y-6 reveal bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10"
+                    style="transition-delay: 200ms;">
+                    <h2 class="text-4xl md:text-5xl font-bold text-land" data-i18n="land.title">Kara Modu</h2>
+                    <h3 class="text-2xl text-white font-medium" data-i18n="land.subtitle">Sağlam. Güvenilir. Hazır.</h3>
+                    <p class="text-gray-300 mt-4 leading-relaxed" data-i18n="land.desc">
+                        İHA'nın kara ortamında hareket edebilmesi için aerodinamik yapı bazında, zemine temas sırasında
+                        stabilitenin arttırılması üzerine odaklanılmıştır. Kanatların dış kısmında yer alan kauçuk
+                        malzeme,
+                        tekerlek görevi görmesi amacıyla seçilmiştir ve karada hareket ederken zemine tutunmayı
+                        kolaylaştırır.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 pt-4">
+                        <div>
+                            <div class="text-3xl font-bold text-white" data-i18n="land.hybrid">Hibrit</div>
+                            <div class="text-sm text-gray-500" data-i18n="land.structure">Yapı</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl font-bold text-white" data-i18n="land.carbon">Carbon</div>
+                            <div class="text-sm text-gray-500" data-i18n="land.body">Gövde</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 5: SU MODU (Zig-Zag) -->
+        <!-- BÖLÜM 5: SU MODU (Zig-Zag) -->
+        <section id="water" class="py-24 px-4 md:px-6 border-t border-white/5">
+            <div class="max-w-[95%] lg:max-w-screen-2xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div
+                    class="order-1 md:order-1 space-y-6 reveal bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10">
+                    <h2 class="text-4xl md:text-5xl font-bold text-water" data-i18n="water.title">Su Modu</h2>
+                    <h3 class="text-2xl text-white font-medium" data-i18n="water.subtitle">Derin. Sessiz. Keşif.</h3>
+                    <p class="text-gray-300 mt-4 leading-relaxed" data-i18n="water.desc">
+                        Su yüzeyinde stabilite ve manevra kolaylığı sağlamak için ayakların uç kısımları sivritilmiş ve
+                        aerodinamik verimlilik ön planda tutulmuştur. Arka kanatların 60° dönerek su moduna geçiş
+                        yapabilmesi,
+                        su yüzeyinde hareket edebilme kabiliyetini artıran önemli bir tasarım özelliğidir.
+                    </p>
+                    <div class="grid grid-cols-1 gap-4 pt-4">
+                        <div>
+                            <div class="text-3xl font-bold text-white">IP68</div>
+                            <div class="text-sm text-gray-500">Koruma</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-2 md:order-2 reveal" style="transition-delay: 200ms;">
+                    <img src="assets/water_v2.png?v=8" alt="Water Mode"
+                        class="relative z-10 w-full rounded-lg shadow-2xl transform transition-transform duration-500 hover:scale-105">
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 6: SİSTEM BİLEŞENLERİ (Grid) -->
+        <section id="components" class="py-24 px-4 md:px-6 border-t border-white/5 bg-zinc-900/20">
+            <div class="max-w-[95%] lg:max-w-screen-2xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-16 reveal" data-i18n="components.title">Sistem Bileşenleri
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal"
+                    style="transition-delay: 200ms;">
+
+                    <!-- Component 1: Flight Control -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.fc">Uçuş Kontrol</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.fc.desc">Pixhawk Cube Orange+ & Here4 GPS</p>
+                    </div>
+
+                    <!-- Component 2: Main Computer -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.computer">Ana Bilgisayar</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.computer.desc">Raspberry Pi 5 (16GB RAM)</p>
+                    </div>
+
+                    <!-- Component 3: Camera -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.camera">Kamera Sistemi</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.camera.desc">IMX219-160 8MP IR-CUT</p>
+                    </div>
+
+                    <!-- Component 4: Telemetry -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.telemetry">Telemetri</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.telemetry.desc">3DR V5 433MHz Uzun Menzil</p>
+                    </div>
+
+                    <!-- Component 5: Power -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.battery">Güç Kaynağı</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.battery.desc">Leopard Power 10000mAh 6S</p>
+                    </div>
+
+                    <!-- Component 6: Material -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.material">Malzeme</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.material.desc">eSun PLA+ & Karbon Fiber</p>
+                    </div>
+
+                    <!-- Component 7: Actuators -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.actuators">Eyleyiciler</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.actuators.desc">Tower Pro MG946 & DC Motorlar
+                        </p>
+                    </div>
+
+                    <!-- Component 8: Sensors -->
+                    <div
+                        class="bg-black/50 border border-white/10 p-6 rounded-xl hover:border-air/50 transition-colors group">
+                        <div
+                            class="h-12 w-12 bg-air/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-air/20 transition-colors">
+                            <svg class="w-6 h-6 text-air" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="comp.sensors">Sensörler</h3>
+                        <p class="text-sm text-gray-400" data-i18n="comp.sensors.desc">URM37 Ultrasonik & IMU</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 7: YAZILIM VE YAPAY ZEKA -->
+        <section class="py-24 px-6 md:px-12 border-t border-white/5">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <!-- Left Side: Features -->
+                <div class="space-y-12 reveal">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-i18n="software.title">Yazılım ve
+                            Yapay Zeka</h2>
+                        <p class="text-gray-400 text-lg" data-i18n="software.desc">
+                            Karabatak, görevlerini yerine getirmek için gelişmiş algoritmalar ve yapay zeka modelleri
+                            kullanır.
+                        </p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <!-- Feature 1: Vision -->
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white" data-i18n="soft.vision">Görüntü İşleme</h3>
+                                <p class="text-gray-400" data-i18n="soft.vision.desc">OpenCV ile nesne tespiti ve takip.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Feature 3 -->
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white" data-i18n="soft.crypto">Veri
+                                    Güvenliği</h3>
+                                <p class="text-gray-400" data-i18n="soft.crypto.desc">CryptoJS ile uçtan uca
+                                    şifreleme (AES-256).</p>
+                            </div>
+                        </div>
+                        <!-- Feature 4 -->
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white" data-i18n="soft.algo">Algoritmalar
+                                </h3>
+                                <p class="text-gray-400" data-i18n="soft.algo.desc">PID Kontrol ve Kalman
+                                    Filtresi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Code/Tech Visual -->
+                <div class="relative reveal" style="transition-delay: 200ms;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-2xl opacity-20">
+                    </div>
+                    <div
+                        class="relative bg-black border border-white/10 rounded-2xl p-8 font-mono text-sm text-gray-300 overflow-hidden">
+                        <div class="flex gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="space-y-2">
+                            <p><span class="text-purple-400">const</span> <span class="text-blue-400">mission</span> = {
+                            </p>
+                            <p class="pl-4"><span class="text-blue-400">mode</span>: <span
+                                    class="text-green-400">'AUTONOMOUS'</span>,</p>
+                            <p class="pl-4"><span class="text-blue-400">target</span>: <span
+                                    class="text-green-400">'DETECTED'</span>,</p>
+                            <p class="pl-4"><span class="text-blue-400">encryption</span>: <span
+                                    class="text-green-400">'AES-256'</span>,</p>
+                            <p class="pl-4"><span class="text-blue-400">modules</span>: [</p>
+                            <p class="pl-8"><span class="text-green-400">'OpenCV'</span>,</p>
+                            <p class="pl-8"><span class="text-green-400">'ROS2'</span>,</p>
+                            <p class="pl-8"><span class="text-green-400">'PX4'</span></p>
+                            <p class="pl-4">]</p>
+                            <p>};</p>
+                            <p class="text-gray-500">// System initialized...</p>
+                            <p><span class="text-blue-400">startMission</span>(mission);</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Swiper CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+        <section id="gallery" class="py-24 px-6 md:px-12 bg-black border-t border-white/5 relative overflow-hidden">
+            <!-- Background Elements -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+                <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[100px]">
+                </div>
+                <div
+                    class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[100px]">
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto relative z-10">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-6 reveal" data-i18n="gallery.title">Görsel
+                    Galeri
+                </h2>
+                <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto reveal" data-i18n="gallery.subtitle">
+                    Karabatak UAV'nin operasyonel yeteneklerini ve tasarım detaylarını keşfedin.
+                </p>
+
+                <!-- Swiper Slider -->
+                <div class="swiper gallery-slider reveal" style="transition-delay: 200ms;">
+                    <div class="swiper-wrapper">
+                        <!-- Slide 1 -->
+                        <div class="swiper-slide">
+                            <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
+                                onclick="openLightbox(0)">
+                                <img src="assets/gallery/gallery-1.png?v=8"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="Gallery 1">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="text-air text-sm font-mono mb-2 block tracking-widest"
+                                        data-i18n="tags.air">HAVA MODU</span>
+                                    <h3 class="text-2xl font-bold text-white" data-i18n="gallery.high_altitude">Yüksek
+                                        İrtifa Keşfi</h3>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 2 -->
+                        <div class="swiper-slide">
+                            <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
+                                onclick="openLightbox(1)">
+                                <img src="assets/gallery/gallery-2.png"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="Gallery 2">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="text-land text-sm font-mono mb-2 block tracking-widest"
+                                        data-i18n="tags.land">KARA
+                                        MODU</span>
+                                    <h3 class="text-2xl font-bold text-white" data-i18n="gallery.rough_terrain">Zorlu
+                                        Arazi Görevi</h3>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 3 -->
+                        <div class="swiper-slide">
+                            <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
+                                onclick="openLightbox(2)">
+                                <img src="assets/gallery/gallery-3.png"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="Gallery 3">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="text-water text-sm font-mono mb-2 block tracking-widest"
+                                        data-i18n="tags.water">SU MODU</span>
+                                    <h3 class="text-2xl font-bold text-white" data-i18n="gallery.underwater">Su Altı
+                                        Operasyonu</h3>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 4 -->
+                        <div class="swiper-slide">
+                            <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
+                                onclick="openLightbox(3)">
+                                <img src="assets/gallery/gallery-4.png"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="Gallery 4">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="text-gray-400 text-sm font-mono mb-2 block tracking-widest"
+                                        data-i18n="tags.system">SİSTEM</span>
+                                    <h3 class="text-2xl font-bold text-white" data-i18n="gallery.modular">Modüler
+                                        Tasarım</h3>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Slide 5 -->
+                        <div class="swiper-slide">
+                            <div class="group relative rounded-2xl overflow-hidden cursor-pointer h-[500px]"
+                                onclick="openLightbox(4)">
+                                <img src="assets/gallery/gallery-5.png"
+                                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                    alt="Gallery 5">
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 transition-opacity">
+                                </div>
+                                <div
+                                    class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="text-gray-400 text-sm font-mono mb-2 block tracking-widest"
+                                        data-i18n="tags.test">TEST</span>
+                                    <h3 class="text-2xl font-bold text-white" data-i18n="gallery.field_test">Saha
+                                        Testleri</h3>
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Pagination & Nav -->
+                    <div class="swiper-pagination !bottom-0"></div>
+                    <div
+                        class="swiper-button-prev !text-white !w-12 !h-12 !bg-black/50 !rounded-full !backdrop-blur-sm after:!text-lg hover:!bg-air transition-colors">
+                    </div>
+                    <div
+                        class="swiper-button-next !text-white !w-12 !h-12 !bg-black/50 !rounded-full !backdrop-blur-sm after:!text-lg hover:!bg-air transition-colors">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox"
+            class="fixed inset-0 z-[60] bg-black/95 hidden flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-gray-300 z-50">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+            <button onclick="prevImage()" class="absolute left-6 text-white hover:text-gray-300 z-50 p-4">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            <button onclick="nextImage()" class="absolute right-6 text-white hover:text-gray-300 z-50 p-4">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+            <img id="lightbox-img" src=""
+                class="max-h-[65vh] max-w-[65vw] w-full h-full object-contain shadow-2xl rounded-lg transform scale-95 transition-transform duration-300"
+                alt="Full Screen">
         </div>
 
-        <div class="border-t border-white/10 pt-8 text-center">
-            <p class="text-sm text-zinc-600" data-i18n="footer.rights">
-                &copy; 2025 Karabatak UAV Project. All rights reserved.
-            </p>
-        </div>
-        </div>
-    </footer>
+        <!-- BÖLÜM 8: TEKNİK ÖZELLİKLER (Bento Grid) -->
+        <section id="specs" class="py-24 px-6 md:px-12 bg-zinc-900/30">
+            <div class="max-w-5xl mx-auto">
+                <h2 class="text-4xl font-bold text-center mb-16 reveal" data-i18n="specs.title">Teknik
+                    Özellikler</h2>
 
-    <!-- Back to Top Button -->
-    <button id="back-to-top"
-        class="fixed bottom-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-white/20 hover:scale-110 pointer-events-none"
-        onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-        </svg>
-    </button>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal"
+                    style="transition-delay: 200ms;">
+                    <!-- Kutu 1 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2"
+                            data-i18n="specs.takeoff_weight">
+                            Kalkış Ağırlığı</div>
+                        <div class="text-3xl font-mono font-bold text-white">5,392 g</div>
+                    </div>
+                    <!-- Kutu 2 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.empty_weight">
+                            Boş
+                            Ağırlık</div>
+                        <div class="text-3xl font-mono font-bold text-white">2,785 g</div>
+                    </div>
+                    <!-- Kutu 3 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.battery">
+                            Batarya
+                        </div>
+                        <div class="text-3xl font-mono font-bold text-white">10,000 mAh</div>
+                        <div class="text-xs text-gray-600 mt-1">6S LiPo</div>
+                    </div>
+                    <!-- Kutu 4 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.flight_time">
+                            Uçuş
+                            Süresi</div>
+                        <div class="text-3xl font-mono font-bold text-white">~12 dk</div>
+                    </div>
+                    <!-- Kutu 5 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.thrust">Toplam
+                            İtki</div>
+                        <div class="text-3xl font-mono font-bold text-white">13,420 g</div>
+                    </div>
+                    <!-- Kutu 6 -->
+                    <div
+                        class="bg-black border border-white/10 p-8 rounded-2xl hover:border-white/30 transition-colors">
+                        <div class="text-gray-500 text-sm uppercase tracking-wider mb-2" data-i18n="specs.motors">
+                            Motorlar
+                        </div>
+                        <div class="text-3xl font-mono font-bold text-white">4x X2812</div>
+                        <div class="text-xs text-gray-600 mt-1">Hobbywing</div>
+                    </div>
+                </div>
+        </section>
 
-    <!-- Scripts -->
-    <script src="js/translations.js?v=2"></script>
-    <script src="js/language.js?v=2"></script>
+        <!-- BÖLÜM 9: OPERASYON SENARYOLARI (Expandable Cards) -->
+        <section id="scenarios" class="py-24 px-6 md:px-12 border-t border-white/5 bg-black relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 reveal" data-i18n="scenarios.title">
+                    Operasyon
+                    Senaryoları</h2>
 
-    <script>
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+                <div class="flex flex-col md:flex-row gap-4 h-[600px] reveal" style="transition-delay: 200ms;">
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+                    <!-- Rescue Card -->
+                    <div
+                        class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                        <img src="assets/scenarios/rescue.png"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="Search and Rescue">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-        document.querySelectorAll('.reveal').forEach(el => {
-            observer.observe(el);
-        });
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <div
+                                class="w-12 h-12 rounded-full bg-red-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-red-500 border border-red-500/30">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                                data-i18n="scenarios.rescue.title">Arama & Kurtarma</h3>
+                            <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                                data-i18n="scenarios.rescue.desc">
+                                Zorlu hava koşullarında ve gece operasyonlarında termal görüş ile hayat kurtarır.
+                            </p>
+                        </div>
+                    </div>
 
-        // Fail-safe: Force show elements if observer fails
-        setTimeout(() => {
+                    <!-- Inspection Card -->
+                    <div
+                        class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                        <img src="assets/scenarios/inspection.png"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="Inspection">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <div
+                                class="w-12 h-12 rounded-full bg-yellow-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-yellow-500 border border-yellow-500/30">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                                data-i18n="scenarios.inspection.title">Endüstriyel Denetim</h3>
+                            <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                                data-i18n="scenarios.inspection.desc">
+                                Petrol platformları ve enerji hatlarını güvenli mesafeden yüksek çözünürlükle denetler.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Card -->
+                    <div
+                        class="scenario-card group relative flex-1 hover:flex-[3] transition-all duration-700 ease-out rounded-3xl overflow-hidden cursor-pointer">
+                        <img src="assets/scenarios/delivery.png"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            alt="Delivery">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-500/20 backdrop-blur-md flex items-center justify-center mb-4 text-blue-500 border border-blue-500/30">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2 whitespace-nowrap"
+                                data-i18n="scenarios.delivery.title">Acil Teslimat</h3>
+                            <p class="text-gray-300 max-w-md opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-24 transition-all duration-500 delay-100 leading-relaxed overflow-hidden"
+                                data-i18n="scenarios.delivery.desc">
+                                Afet bölgelerine tıbbi malzeme ve acil yardım kitlerini hızla ulaştırır.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BÖLÜM 9b: SCROLLYTELLING (Story Mode) -->
+        <!-- BÖLÜM 10: İLETİŞİM FORMU & FOOTER -->
+        <footer id="contact" class="py-20 bg-black border-t border-white/10 relative z-20">
+            <div class="max-w-7xl mx-auto px-6 md:px-12">
+
+                <div class="grid md:grid-cols-2 gap-16 mb-16">
+                    <!-- Sol Taraf: İletişim Bilgileri -->
+                    <div class="space-y-8 reveal">
+                        <h2 class="text-4xl font-bold mb-6" data-i18n="footer.contact">İletişim</h2>
+                        <p class="text-gray-400 text-lg mb-8" data-i18n="contact.desc">
+                            Projeyle ilgili sorularınız, sponsorluk teklifleriniz veya teknik detaylar için bize ulaşın.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="text-lg">iletisim@karabatak.com</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <span class="text-lg">+90 555 000 00 00</span>
+                            </div>
+                        </div>
+
+                        <a href="assets/Karabatak_Brochure.pdf" download
+                            class="inline-flex items-center gap-2 text-sm text-air hover:text-white transition-colors mt-8">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            <span data-i18n="footer.download">Tanıtım Dosyasını İndir (PDF)</span>
+                        </a>
+                    </div>
+
+                    <!-- Sağ Taraf: İletişim Formu -->
+                    <div class="bg-zinc-900/30 p-8 rounded-3xl border border-white/10 reveal"
+                        style="transition-delay: 200ms;">
+                        <form action="https://formspree.io/f/xldqwpkq" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-400 mb-2"
+                                    data-i18n="form.name">İsim Soyisim</label>
+                                <input type="text" name="name" id="name" required
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                    placeholder="Adınız" data-i18n-placeholder="form.name.placeholder">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2"
+                                    data-i18n="form.email">E-posta Adresi</label>
+                                <input type="email" name="email" id="email" required
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                    placeholder="ornek@email.com" data-i18n-placeholder="form.email.placeholder">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-400 mb-2"
+                                    data-i18n="form.message">Mesajınız</label>
+                                <textarea name="message" id="message" rows="4" required
+                                    class="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-air focus:ring-1 focus:ring-air transition-all"
+                                    placeholder="Mesajınızı buraya yazın..."
+                                    data-i18n-placeholder="form.message.placeholder"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-white text-black font-bold py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                                <span data-i18n="form.submit">Gönder</span>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-sm text-zinc-600" data-i18n="footer.rights">
+                    &copy; 2025 Karabatak UAV Project. All rights reserved.
+                </p>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top"
+            class="fixed bottom-8 right-8 bg-white/10 backdrop-blur-md border border-white/20 text-white p-3 rounded-full shadow-lg opacity-0 translate-y-10 transition-all duration-300 z-40 hover:bg-white/20 hover:scale-110 pointer-events-none"
+            onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18">
+                </path>
+            </svg>
+        </button>
+
+        <!-- Scripts -->
+        <script src="js/translations.js?v=2"></script>
+        <script src="js/language.js?v=2"></script>
+
+        <script>
+            // Intersection Observer for Scroll Animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
             document.querySelectorAll('.reveal').forEach(el => {
-                el.classList.add('active');
+                observer.observe(el);
             });
-        }, 1000);
 
-        // Mobile Menu Logic
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const closeIcon = document.getElementById('close-icon');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
+            // Fail-safe: Force show elements if observer fails
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    el.classList.add('active');
+                });
+            }, 1000);
 
-        function toggleMenu() {
-            const isHidden = mobileMenu.classList.contains('hidden');
+            // Mobile Menu Logic
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
 
-            if (isHidden) {
-                // Open Menu
-                mobileMenu.classList.remove('hidden');
-                // Small delay to allow display:block to apply before opacity transition
-                setTimeout(() => {
-                    mobileMenu.classList.remove('opacity-0');
-                    mobileMenu.classList.add('opacity-100');
-                }, 10);
-                menuIcon.classList.add('hidden');
-                closeIcon.classList.remove('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
-            } else {
-                // Close Menu
-                mobileMenu.classList.remove('opacity-100');
-                mobileMenu.classList.add('opacity-0');
-                setTimeout(() => {
-                    mobileMenu.classList.add('hidden');
-                }, 300); // Wait for transition
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-                document.body.style.overflow = ''; // Enable scrolling
-            }
-        }
+            function toggleMenu() {
+                const isHidden = mobileMenu.classList.contains('hidden');
 
-        mobileBtn.addEventListener('click', toggleMenu);
-
-        // Close menu when a link is clicked
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', toggleMenu);
-        });
-
-        // Back to Top Logic
-        const backToTopBtn = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
-                backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            } else {
-                backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
-                backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            }
-        });
-
-
-
-        // Active Menu Tracking
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
-                    // Ensure we have a matching link
-                    const matchingLink = document.querySelector(`.nav-link[href="#${id}"]`);
-
-                    if (matchingLink) {
-                        // Remove active class from all
-                        navLinks.forEach(link => {
-                            link.classList.remove('text-white', 'font-bold', 'scale-110');
-                            link.classList.add('text-gray-400', 'font-medium');
-                        });
-                        // Add to current
-                        matchingLink.classList.remove('text-gray-400', 'font-medium');
-                        matchingLink.classList.add('text-white', 'font-bold', 'scale-110');
-                    }
-                }
-            });
-        }, {
-            rootMargin: '-50% 0px -50% 0px', // Trigger when section is in the middle of viewport
-            threshold: 0
-        });
-
-        sections.forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-        // 6. Blueprint / X-Ray Toggle Logic (Inline for Reliability)
-        const blueprintToggle = document.getElementById('air-blueprint-toggle');
-        const airContainer = document.getElementById('air-image-container');
-
-        if (blueprintToggle && airContainer) {
-            blueprintToggle.addEventListener('click', () => {
-                const isBlueprint = airContainer.classList.toggle('blueprint-mode');
-
-                if (typeof gsap !== 'undefined') {
-                    if (isBlueprint) {
-                        gsap.to(blueprintToggle, { borderColor: "#22d3ee", color: "#22d3ee" }); // Cyan
-                        // Flash effect
-                        gsap.fromTo(airContainer, { filter: "brightness(2)" }, { filter: "brightness(1)", duration: 0.2 });
-                    } else {
-                        gsap.to(blueprintToggle, { borderColor: "rgba(255,255,255,0.1)", color: "white" });
-                    }
+                if (isHidden) {
+                    // Open Menu
+                    mobileMenu.classList.remove('hidden');
+                    // Small delay to allow display:block to apply before opacity transition
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('opacity-0');
+                        mobileMenu.classList.add('opacity-100');
+                    }, 10);
+                    menuIcon.classList.add('hidden');
+                    closeIcon.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
                 } else {
-                    // Fallback if GSAP fails
-                    if (isBlueprint) {
-                        blueprintToggle.style.borderColor = "#22d3ee";
-                        blueprintToggle.style.color = "#22d3ee";
-                    } else {
-                        blueprintToggle.style.borderColor = "rgba(255,255,255,0.1)";
-                        blueprintToggle.style.color = "white";
-                    }
+                    // Close Menu
+                    mobileMenu.classList.remove('opacity-100');
+                    mobileMenu.classList.add('opacity-0');
+                    setTimeout(() => {
+                        mobileMenu.classList.add('hidden');
+                    }, 300); // Wait for transition
+                    menuIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                    document.body.style.overflow = ''; // Enable scrolling
+                }
+            }
+
+            mobileBtn.addEventListener('click', toggleMenu);
+
+            // Close menu when a link is clicked
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // Back to Top Logic
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
                 }
             });
-        }
-
-
-    </script>
 
 
 
-    <script src="js/particles.js?v=2"></script>
-    <script src="js/tilt.js?v=2"></script>
+            // Active Menu Tracking
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="js/gallery.js?v=2"></script>
-    <!-- GSAP Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="js/smooth-scroll.js"></script>
-    <script src="js/animations.js?v=2"></script>
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        // Ensure we have a matching link
+                        const matchingLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+                        if (matchingLink) {
+                            // Remove active class from all
+                            navLinks.forEach(link => {
+                                link.classList.remove('text-white', 'font-bold', 'scale-110');
+                                link.classList.add('text-gray-400', 'font-medium');
+                            });
+                            // Add to current
+                            matchingLink.classList.remove('text-gray-400', 'font-medium');
+                            matchingLink.classList.add('text-white', 'font-bold', 'scale-110');
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '-50% 0px -50% 0px', // Trigger when section is in the middle of viewport
+                threshold: 0
+            });
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // 6. Blueprint / X-Ray Toggle Logic (Inline for Reliability)
+            const blueprintToggle = document.getElementById('air-blueprint-toggle');
+            const airContainer = document.getElementById('air-image-container');
+
+            if (blueprintToggle && airContainer) {
+                blueprintToggle.addEventListener('click', () => {
+                    const isBlueprint = airContainer.classList.toggle('blueprint-mode');
+
+                    if (typeof gsap !== 'undefined') {
+                        if (isBlueprint) {
+                            gsap.to(blueprintToggle, { borderColor: "#22d3ee", color: "#22d3ee" }); // Cyan
+                            // Flash effect
+                            gsap.fromTo(airContainer, { filter: "brightness(2)" }, { filter: "brightness(1)", duration: 0.2 });
+                        } else {
+                            gsap.to(blueprintToggle, { borderColor: "rgba(255,255,255,0.1)", color: "white" });
+                        }
+                    } else {
+                        // Fallback if GSAP fails
+                        if (isBlueprint) {
+                            blueprintToggle.style.borderColor = "#22d3ee";
+                            blueprintToggle.style.color = "#22d3ee";
+                        } else {
+                            blueprintToggle.style.borderColor = "rgba(255,255,255,0.1)";
+                            blueprintToggle.style.color = "white";
+                        }
+                    }
+                });
+            }
+
+
+        </script>
+
+
+
+    </div><!-- End Project Karabatak -->
+
+    <!-- GÖLGE PROJECT CONTENT (Placeholder) -->
+    <div id="project-golge" class="project-content hidden">
+        <!-- Minimalist Aesthetic Cursor -->
+        <div class="custom-cursor"></div>
+
+        <!-- Gölge Hero Section -->
+        <section
+            class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-black pt-24 pb-20">
+            <!-- Background Effects -->
+            <div class="absolute inset-0 z-0">
+                <div class="golge-orb orb-1"></div>
+                <div class="golge-orb orb-2"></div>
+                <div class="golge-orb orb-3"></div>
+                <div
+                    class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-black to-black">
+                </div>
+                <div
+                    class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]">
+                </div>
+            </div>
+
+            <div class="z-10 w-full max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-left space-y-8 reveal">
+                    <div class="inline-block">
+                        <span
+                            class="py-1 px-3 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-sm font-mono tracking-widest"
+                            data-i18n="golge.hero.badge">YENİ
+                            NESİL</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-tight"
+                        data-i18n="golge.hero.title">
+                        GÖLGE <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-gray-400">İHA
+                            Sistemi</span>
+                    </h1>
+                    <p class="text-xl text-gray-400 leading-relaxed max-w-xl" data-i18n="golge.hero.desc">
+                        Hava ve kara ortamlarında koordineli hareket edebilen, silindir formunda <strong>hibrit</strong>
+                        ve <strong>yarı otonom</strong> keşif platformu.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <div
+                            class="flex items-center gap-2 text-gray-300 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <span data-i18n="golge.hero.badge.hybrid">Hibrit Yapı</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 text-gray-300 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                </path>
+                            </svg>
+                            <span data-i18n="golge.hero.badge.audio">Ses Kaydı</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-2 text-gray-300 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                                </path>
+                            </svg>
+                            <span data-i18n="golge.hero.badge.stealth">Gizli Gözlem</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative reveal delay-200 flex flex-col items-center">
+                    <!-- Mode Toggle -->
+                    <div
+                        class="absolute top-0 right-0 z-20 bg-white/10 backdrop-blur-md rounded-full p-1 border border-white/20 flex">
+                        <button onclick="setGolgeMode('flight')" id="btn-mode-flight"
+                            class="px-4 py-2 rounded-full text-xs font-bold transition-all bg-purple-500 text-white shadow-lg"
+                            data-i18n="golge.hero.mode.flight">
+                            UÇUŞ MODU
+                        </button>
+                        <button onclick="setGolgeMode('land')" id="btn-mode-land"
+                            class="px-4 py-2 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white"
+                            data-i18n="golge.hero.mode.land">
+                            KARA MODU
+                        </button>
+                    </div>
+
+                    <!-- Images -->
+                    <div
+                        class="relative w-full aspect-square flex items-center justify-center group overflow-hidden rounded-2xl">
+                        <div class="absolute inset-0 bg-purple-600/20 blur-[100px] rounded-full"></div>
+
+                        <!-- Laser Scanner Container -->
+                        <div
+                            class="absolute inset-0 z-20 overflow-hidden rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                            <div class="laser-scan"></div>
+                            <div class="absolute inset-0 scan-overlay h-[20%] w-full"></div>
+                        </div>
+
+                        <img id="golge-image" src="assets/golge/golge_v1.png" alt="Gölge İHA"
+                            class="relative z-10 w-full drop-shadow-2xl animate-float transition-all duration-500">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Details -->
+        <section class="py-24 px-6 bg-zinc-900/50 border-t border-white/5">
+            <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1 reveal">
+                    <img src="assets/golge/golge_v2.png" alt="Gölge Land Mode"
+                        class="w-full rounded-2xl shadow-2xl border border-white/10 hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="order-1 md:order-2 space-y-8 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="golge.mission.title">Görev Tanımı
+                    </h2>
+                    <p class="text-gray-300 leading-relaxed" data-i18n="golge.mission.desc1">
+                        Sistemin temel mantığı, <strong>uçuş kabiliyeti</strong> ile hedef bölgeye hızlı ve etkin bir
+                        şekilde ulaşmak, ardından <strong>kompakt boyutlarının</strong> sağladığı avantajla stratejik
+                        noktalarda konumlanarak veri toplamaktır.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed" data-i18n="golge.mission.desc2">
+                        Gölge İHA, belirlenen görev sahasına ulaştığında kamera aracılığı ile çevre gözlemlenir. Ortam
+                        uygun ise kara moduna geçiş sağlanır ve gövde üzerindeki <strong>tekerlekler sayesinde</strong>
+                        stabilize bir şekilde ilerler. Cihazın küçük ölçekli yatay mimarisi, alçak zeminlerde veya
+                        dikkat çekmeyen noktalarda kolayca ilerleyebilmesini ve ideal gözlem konumuna yerleşmesini
+                        sağlar.
+                    </p>
+
+                    <!-- New Info Section from PDF -->
+                    <div class="mt-8 pt-8 border-t border-white/10">
+                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                            <span class="w-1.5 h-6 bg-purple-500 rounded-full"></span>
+                            <span data-i18n="golge.capabilities.title">Operasyonel Yetenekler</span>
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <span class="text-purple-400 font-bold text-xs">1</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm mb-0.5" data-i18n="golge.cap.semi_auto">Yarı
+                                        Otonom Kontrol</h4>
+                                    <p class="text-xs text-gray-400" data-i18n="golge.cap.semi_auto.desc">Hava ve kara
+                                        ortamlarında koordineli hareket
+                                        edebilen akıllı kontrol mimarisi.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-3">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <span class="text-purple-400 font-bold text-xs">2</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm mb-0.5" data-i18n="golge.cap.rth">Otonom Eve
+                                        Dönüş</h4>
+                                    <p class="text-xs text-gray-400" data-i18n="golge.cap.rth.desc">Görev
+                                        tamamlandığında sistem otomatik olarak uçuş
+                                        moduna geçer ve güvenli bir şekilde başlangıç noktasına döner.</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-3">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0 mt-0.5">
+                                    <span class="text-purple-400 font-bold text-xs">3</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-sm mb-0.5" data-i18n="golge.cap.indoor">İç
+                                        Mekan İstihbaratı</h4>
+                                    <p class="text-xs text-gray-400" data-i18n="golge.cap.indoor.desc">Özellikle kapalı
+                                        alan keşiflerinde sürekli ses
+                                        aktarımı ve kaydı ile tam kapsamlı istihbarat sağlar.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unique Features Grid -->
+        <section class="py-24 px-6 bg-black border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-white mb-16 reveal"
+                    data-i18n="golge.features.title">Özgün Tasarım</h2>
+
+                <div class="grid md:grid-cols-3 gap-8 reveal delay-200">
+                    <!-- Feature 1 -->
+                    <div
+                        class="p-8 bg-zinc-900/40 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-colors group">
+                        <div
+                            class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4" data-i18n="golge.feat.cylinder">Silindir Gövde
+                        </h3>
+                        <p class="text-gray-400" data-i18n="golge.feat.cylinder.desc">
+                            Pervaneler silindir gövde içerisinden açılır. Dikey kalkış ve uçuş yapabilmesine olanak
+                            tanırken, kapandığında kompakt bir form alır.
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div
+                        class="p-8 bg-zinc-900/40 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-colors group">
+                        <div
+                            class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4" data-i18n="golge.feat.drive">Aktif Sürüş</h3>
+                        <p class="text-gray-400" data-i18n="golge.feat.drive.desc">
+                            Kara modunda gövdenin dış yüzeyi aktif bir sürüş mekanizmasına dönüşür. Tekerlekler
+                            sayesinde zorlu yüzeylerde ilerler.
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div
+                        class="p-8 bg-zinc-900/40 rounded-3xl border border-white/10 hover:border-purple-500/50 transition-colors group">
+                        <div
+                            class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4" data-i18n="golge.feat.security">Veri Güvenliği
+                        </h3>
+                        <p class="text-gray-400" data-i18n="golge.feat.security.desc">
+                            Görüntü ve ses verilerini eş zamanlı yer istasyonuna aktarır ve kaydeder. Sinyal
+                            kesintisinde bile veri bütünlüğü korunur.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Specs - Modern Glassmorphism -->
+        <section class="py-24 px-6 bg-black relative overflow-hidden">
+            <!-- Background Gradients -->
+            <div
+                class="absolute top-0 left-1/4 w-96 h-96 bg-purple-900/20 rounded-full blur-[120px] pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-900/10 rounded-full blur-[120px] pointer-events-none">
+            </div>
+
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-end justify-between mb-12 reveal">
+                    <div>
+                        <span class="text-purple-400 font-mono text-sm tracking-widest uppercase mb-2 block"
+                            data-i18n="golge.specs.subtitle">Teknik
+                            Veriler</span>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white" data-i18n="golge.specs.title">Sistem
+                            Özellikleri</h2>
+                    </div>
+                    <div class="hidden md:block w-1/3 h-px bg-white/10"></div>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 reveal delay-200">
+                    <!-- Spec Card 1 -->
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all group">
+                        <div class="text-gray-400 text-sm font-mono mb-2" data-i18n="golge.spec.weight">AĞIRLIK</div>
+                        <div class="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                            &lt;500<span class="text-lg text-gray-500 ml-1">gr</span></div>
+                        <div class="mt-4 text-xs text-gray-500" data-i18n="golge.spec.weight.desc">Operasyonel kalkış
+                            ağırlığı</div>
+                    </div>
+
+                    <!-- Spec Card 2 -->
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all group">
+                        <div class="text-gray-400 text-sm font-mono mb-2" data-i18n="golge.spec.range">MENZİL</div>
+                        <div class="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">2<span
+                                class="text-lg text-gray-500 ml-1">km</span></div>
+                        <div class="mt-4 text-xs text-gray-500" data-i18n="golge.spec.range.desc">Etkili veri aktarım
+                            menzili</div>
+                    </div>
+
+                    <!-- Spec Card 3 -->
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all group">
+                        <div class="text-gray-400 text-sm font-mono mb-2" data-i18n="golge.spec.autonomy">OTONOMİ</div>
+                        <div class="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                            SV-3<span class="text-lg text-gray-500 ml-1"></span></div>
+                        <div class="mt-4 text-xs text-gray-500" data-i18n="golge.spec.autonomy.desc">Yarı otonom sürüş
+                            ve uçuş</div>
+                    </div>
+
+                    <!-- Spec Card 4 -->
+                    <div
+                        class="p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10 hover:border-purple-500/30 transition-all group">
+                        <div class="text-gray-400 text-sm font-mono mb-2" data-i18n="golge.spec.security">GÜVENLİK</div>
+                        <div class="text-3xl font-bold text-white group-hover:text-purple-400 transition-colors">
+                            AES<span class="text-lg text-gray-500 ml-1">256</span></div>
+                        <div class="mt-4 text-xs text-gray-500" data-i18n="golge.spec.security.desc">Kriptolu veri
+                            iletişimi</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scripts -->
+        <script src="js/particles.js?v=2"></script>
+        <script src="js/tilt.js?v=2"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="js/gallery.js?v=2"></script>
+        <!-- GSAP Animations -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+        <script src="js/smooth-scroll.js"></script>
+        <script src="js/animations.js?v=2"></script>
+        <script>
+            // Project Switching Logic
+            function switchProject(projectId) {
+                // Hide all project contents
+                document.querySelectorAll('.project-content').forEach(el => {
+                    el.classList.add('hidden');
+                });
+
+                // Toggle Custom Cursor Mode
+                if (projectId === 'golge') {
+                    document.body.classList.add('golge-mode');
+                } else {
+                    document.body.classList.remove('golge-mode');
+                }
+
+                // Toggle Nav Links (Desktop & Mobile)
+                const karabatakNav = document.getElementById('nav-karabatak-links');
+                const karabatakMobileNav = document.getElementById('mobile-karabatak-links');
+
+                if (projectId === 'karabatak') {
+                    if (karabatakNav) karabatakNav.classList.remove('hidden');
+                    if (karabatakMobileNav) karabatakMobileNav.classList.remove('hidden');
+                    // Ensure layout flex restoration if needed (though classList toggle is safer)
+                    if (karabatakMobileNav) karabatakMobileNav.style.display = '';
+                } else {
+                    if (karabatakNav) karabatakNav.classList.add('hidden');
+                    if (karabatakMobileNav) karabatakMobileNav.classList.add('hidden');
+                }
+
+                // Show selected project
+                const selectedProject = document.getElementById(`project-${projectId}`);
+                if (selectedProject) {
+                    selectedProject.classList.remove('hidden');
+
+                    // Re-trigger animations if any (optional)
+                    if (typeof ScrollTrigger !== 'undefined') {
+                        ScrollTrigger.refresh();
+                    }
+                }
+
+                // Update Buttons
+                document.querySelectorAll('.project-btn').forEach(btn => {
+                    // Reset to default style (gray text)
+                    btn.className = 'project-btn px-4 py-1.5 rounded-full text-sm transition-all text-gray-400 hover:text-white';
+                });
+
+                // Highlight active button
+                const activeBtn = document.getElementById(`btn-${projectId}`);
+                if (activeBtn) {
+                    activeBtn.className = 'project-btn px-4 py-1.5 rounded-full text-sm transition-all text-black font-bold bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]';
+                }
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Gölge Mode Switching
+            function setGolgeMode(mode) {
+                const img = document.getElementById('golge-image');
+                const btnFlight = document.getElementById('btn-mode-flight');
+                const btnLand = document.getElementById('btn-mode-land');
+
+                if (mode === 'flight') {
+                    img.style.opacity = '0';
+                    setTimeout(() => {
+                        img.src = 'assets/golge/golge_v1.png';
+                        img.style.opacity = '1';
+                    }, 300);
+
+                    btnFlight.className = "px-4 py-2 rounded-full text-xs font-bold transition-all bg-purple-500 text-white shadow-lg";
+                    btnLand.className = "px-4 py-2 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white";
+                } else {
+                    img.style.opacity = '0';
+                    setTimeout(() => {
+                        img.src = 'assets/golge/golge_v2.png';
+                        img.style.opacity = '1';
+                    }, 300);
+
+                    btnLand.className = "px-4 py-2 rounded-full text-xs font-bold transition-all bg-purple-500 text-white shadow-lg";
+                    btnFlight.className = "px-4 py-2 rounded-full text-xs font-bold transition-all text-gray-400 hover:text-white";
+                }
+            }
+
+            // Custom Cursor Logic
+            const cursor = document.querySelector('.custom-cursor');
+
+            document.addEventListener('mousemove', (e) => {
+                if (document.body.classList.contains('golge-mode')) {
+                    gsap.to(cursor, {
+                        x: e.clientX,
+                        y: e.clientY,
+                        duration: 0.1,
+                        ease: "power2.out"
+                    });
+                }
+            });
+
+            // Hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, .group, .project-btn');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        </script>
+
 </body>
 
 </html>

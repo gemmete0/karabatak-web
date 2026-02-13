@@ -10,6 +10,12 @@ function changeLanguage(lang) {
                 element.textContent = translations[lang][key];
             }
         }
+
+        // Handle placeholders
+        const placeholderKey = element.getAttribute('data-i18n-placeholder');
+        if (placeholderKey && translations[lang] && translations[lang][placeholderKey]) {
+            element.placeholder = translations[lang][placeholderKey];
+        }
     });
 
     // Update active state of buttons
