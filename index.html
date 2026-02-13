@@ -466,7 +466,7 @@
                     class="lang-btn px-3 py-1 rounded-full text-xs transition-all text-gray-400 hover:text-white">EN</button>
             </div>
 
-            <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
+            <a href="assets/Karabatak_Brochure.pdf?v=2" download target="_blank"
                 class="magnetic-btn bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full transition-all border border-white/10 flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -502,7 +502,19 @@
                     data-i18n="nav.specs">Özellikler</a>
             </div>
 
-            <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
+            <!-- Mobile Project Switcher -->
+            <div class="flex items-center bg-white/5 rounded-full p-2 border border-white/10 mb-4 scale-125">
+                <button onclick="switchProject('karabatak')" id="mobile-btn-karabatak"
+                    class="project-btn px-6 py-2 rounded-full text-sm transition-all text-black font-bold bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                    KARABATAK
+                </button>
+                <button onclick="switchProject('golge')" id="mobile-btn-golge"
+                    class="project-btn px-6 py-2 rounded-full text-sm transition-all text-gray-400 hover:text-white">
+                    GÖLGE
+                </button>
+            </div>
+
+            <a href="assets/Karabatak_Brochure.pdf?v=2" download target="_blank"
                 class="mobile-link text-3xl font-bold text-gray-300 hover:text-white flex items-center gap-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -602,7 +614,7 @@
             </div>
 
             <!-- Hero CTA Button -->
-            <a href="assets/Karabatak_Brochure.pdf" download target="_blank"
+            <a href="assets/Karabatak_Brochure.pdf?v=2" download target="_blank"
                 class="magnetic-btn group relative px-8 py-4 bg-white text-black font-bold rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.3)] reveal"
                 style="transition-delay: 400ms;">
                 <div
@@ -2043,9 +2055,15 @@
                 });
 
                 // Highlight active button
+                // Highlight active button (Desktop & Mobile)
                 const activeBtn = document.getElementById(`btn-${projectId}`);
+                const activeMobileBtn = document.getElementById(`mobile-btn-${projectId}`);
+
                 if (activeBtn) {
                     activeBtn.className = 'project-btn px-4 py-1.5 rounded-full text-sm transition-all text-black font-bold bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]';
+                }
+                if (activeMobileBtn) {
+                    activeMobileBtn.className = 'project-btn px-6 py-2 rounded-full text-sm transition-all text-black font-bold bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)]';
                 }
 
                 // Scroll to top
