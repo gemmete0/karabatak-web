@@ -1,6 +1,6 @@
 function changeLanguage(lang) {
     // Update text content
-    document.querySelectorAll('[data-i18n]').forEach(element => {
+    document.querySelectorAll('[data-i18n], [data-i18n-placeholder]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key]) {
             // Check if the translation contains HTML tags

@@ -1,18 +1,34 @@
-// Gallery Data
-const galleryImages = [
-    'assets/gallery/gallery-1.png',
-    'assets/gallery/gallery-2.png',
-    'assets/gallery/gallery-3.png',
-    'assets/gallery/gallery-4.png',
-    'assets/gallery/gallery-5.png'
-];
-
+// Lightbox Variables
+let galleryImages = [];
 let currentImageIndex = 0;
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
+let lightbox = null;
+let lightboxImg = null;
 
 // Lightbox Functions
 function openLightbox(index) {
+    if (!lightbox) {
+        lightbox = document.getElementById('lightbox');
+        lightboxImg = document.getElementById('lightbox-img');
+    }
+
+    if (!lightbox || !lightboxImg) {
+        console.error("Lightbox elements not found in DOM");
+        return;
+    }
+
+    // Dynamically fetch images from the currently active project slider
+    const activeSlider = document.querySelector('.project-content:not(.hidden) .gallery-slider');
+    
+    // Fallback to the first gallery-slider if project-content wrappers aren't used or found
+    const sliderToUse = activeSlider || document.querySelector('.gallery-slider');
+    
+    if (sliderToUse) {
+        const imgs = sliderToUse.querySelectorAll('.swiper-slide img');
+        galleryImages = Array.from(imgs).map(img => img.src);
+    }
+
+    if (galleryImages.length === 0) return;
+    
     currentImageIndex = index;
     lightboxImg.src = galleryImages[currentImageIndex];
 
@@ -26,6 +42,7 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
+    if(!lightbox) return;
     lightbox.classList.add('opacity-0');
     lightboxImg.classList.remove('scale-100');
     lightboxImg.classList.add('scale-95');
@@ -36,16 +53,19 @@ function closeLightbox() {
 }
 
 function nextImage() {
+    if (galleryImages.length === 0) return;
     currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
     updateLightboxImage();
 }
 
 function prevImage() {
+    if (galleryImages.length === 0) return;
     currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
     updateLightboxImage();
 }
 
 function updateLightboxImage() {
+    if(!lightboxImg) return;
     lightboxImg.classList.add('opacity-0');
     setTimeout(() => {
         lightboxImg.src = galleryImages[currentImageIndex];
@@ -57,14 +77,16 @@ function updateLightboxImage() {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
+    // Attempt bindings early just in case
+    lightbox = document.getElementById('lightbox');
+    lightboxImg = document.getElementById('lightbox-img');
+
     // Close lightbox on outside click
-    if (lightbox) {
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
-    }
+    document.body.addEventListener('click', (e) => {
+        if (lightbox && e.target === lightbox) {
+            closeLightbox();
+        }
+    });
 
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -75,14 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Swiper Initialization
-    const swiperElement = document.querySelector('.gallery-slider');
-    if (swiperElement) {
-        const swiper = new Swiper('.gallery-slider', {
+    // Find all gallery sliders and initialize them individually so they don't break when hidden
+    const sliders = document.querySelectorAll('.gallery-slider');
+    sliders.forEach(sliderEl => {
+        new Swiper(sliderEl, {
             effect: 'coverflow',
             grabCursor: true,
             centeredSlides: true,
             slidesPerView: 'auto',
             initialSlide: 1,
+            // Critical config to make Swiper recalculate when parent `.hidden` is removed!
+            observer: true,
+            observeParents: true,
             coverflowEffect: {
                 rotate: 20,
                 stretch: 0,
@@ -91,12 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 slideShadows: true,
             },
             pagination: {
-                el: '.swiper-pagination',
+                el: sliderEl.querySelector('.swiper-pagination'), 
                 clickable: true,
             },
             navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
+                nextEl: sliderEl.querySelector('.swiper-button-next') || sliderEl.parentElement.querySelector('.swiper-button-next'),
+                prevEl: sliderEl.querySelector('.swiper-button-prev') || sliderEl.parentElement.querySelector('.swiper-button-prev'),
             },
             breakpoints: {
                 320: {
@@ -111,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    }
+    });
 });
 
 // Expose functions to global scope for HTML onclick attributes

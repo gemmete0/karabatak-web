@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 y: 0,
                 opacity: 1,
                 filter: "blur(0px)",
-                duration: 1.2,
-                ease: "power4.out", // Luxurious ease
+                duration: 0.6,
+                ease: "power2.out", // Faster ease
                 scrollTrigger: {
                     trigger: heading,
                     start: "top 90%",
@@ -71,9 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
-                    stagger: 0.1,
-                    ease: "power3.out",
+                    duration: 0.5,
+                    stagger: 0.05,
+                    ease: "power2.out",
                     scrollTrigger: {
                         trigger: grid,
                         start: "top 85%",
@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 scale: 1,
                 opacity: 1,
                 rotationY: 0,
-                duration: 1.5,
-                ease: "power3.out",
+                duration: 0.6,
+                ease: "power2.out",
                 scrollTrigger: {
                     trigger: img,
                     start: "top 80%",
